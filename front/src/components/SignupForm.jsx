@@ -1,6 +1,6 @@
 
 
-function InscriptionForm() {
+function SignupForm() {
     return (
         <div>
     <h1>Inscription</h1>
@@ -17,4 +17,4 @@ function InscriptionForm() {
     );
 }
 
-export default InscriptionForm;
+export default SignupForm;
