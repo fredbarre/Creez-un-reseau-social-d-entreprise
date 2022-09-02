@@ -6,6 +6,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './index.scss'
 import './App.css'
 import LoginPage from './pages/LoginPage'
+import SignupPage from './pages/SignupPage';
+import NewPostPage from './pages/NewPostPage';
+import PostPage from './pages/postPage';
+import PostsPage from './pages/PostsPage';
 
 /*
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -35,10 +39,12 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LoginPage />}>
-          <Route index element={<LoginPage />} />
-          
-          <Route path="*" element={<NoPage />} />
+        <Route path="/login" element={<LoginPage />}>
+          <Route path="/sigup" element={<SignupPage />} />
+          <Route path="/newPost" element={<NewPostPage />} />
+          <Route path="/post" element={<PostPage />} />
+          <Route path="/posts" element={<PostsPage />} />
+         
         </Route>
       </Routes>
     </BrowserRouter>
