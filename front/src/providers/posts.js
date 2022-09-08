@@ -6,18 +6,21 @@ const fetchposts = async function () {
   await timeout(300);
   const body = [
     {
+      id: 1,
       user: "joe",
       title: "Titre1",
       post: "azeazeazeazezajeaozjee az eakzelazkeazkezaùezaazeaz zaeazeeaze eakzelazkeazkezaùezaazeaz eakzelazkeazkezaùeza",
       link: "./src/assets/imagesposts/nuages.jpg",
     },
     {
+      id: 2,
       user: "joe",
       title: "Titre2",
       post: "post coordination 2",
       link: "./src/assets/imagesposts/nuages.jpg",
     },
     {
+      id: 3,
       user: "moe",
       title: "Titre3",
       post: "post environnement 3",

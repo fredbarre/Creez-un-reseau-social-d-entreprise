@@ -5,6 +5,7 @@ const fetchpost = async function () {
   //const body = await response.json();
   await timeout(300);
   const body = {
+    id: 1,
     user: "joe",
     title: "Titre1",
     post: "azeazeazeazezajeaozjee az eakzelazkeazkezaùezaazeaz zaeazeeaze eakzelazkeazkezaùezaazeaz eakzelazkeazkezaùeza",
