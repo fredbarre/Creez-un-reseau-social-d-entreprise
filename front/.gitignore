@@ -1,5 +1,6 @@
 #env
-.src/api/.env
+/src/api/.env
+
 
 # Logs
 logs
