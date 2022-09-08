@@ -1,22 +1,22 @@
+import fetchpost from "../providers/post.js";
+
+let post = await fetchpost();
+
 function DetailPost() {
   return (
     <div>
       <br />
       <img
-        src="./src/assets/imagesposts/nuages.jpg"
+        src={post.link}
         width="256"
         height="256"
         className="column is-half is-offset-one-quarter"
       />
+      <div className="block box">{post.user}</div>
+      <div className="block box">Titre du post {post.title}</div>
       <div className="block box">
-        Auteur <strong>block</strong>.
-      </div>
-      <div className="block box">Titre du post</div>
-      <div className="block box">
-        Text du post
         <br />
-        azeazeazeazezajeaozjee az eakzelazkeazkezaùezaazeaz zaeazeeaze
-        eakzelazkeazkezaùezaazeaz eakzelazkeazkezaùeza
+        {post.post}
       </div>
     </div>
   );
