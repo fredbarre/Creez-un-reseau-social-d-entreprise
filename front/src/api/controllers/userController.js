@@ -2,9 +2,9 @@ import userModel from "../models/userModel";
 import bcrypt from "bcrypt";
 import jwt from "../managers/jwt";
 
-import env from "../managers/env";
-if (!env.TOKENSECRET) console.log("TOKENSECRET must be set in .env");
-const { TOKENSECRET } = env;
+/*import env from "../managers/env";
+if (!env.JWT_SECRET) console.log("TOKENSECRET must be set in .env");
+const { JWT_SECRET } = env;*/
 import joischema from "../managers/joivalidator";
 
 let signup = async function (req, res) {
