@@ -3,11 +3,18 @@ import mongodb from "../managers/mongoDB";
 import uniqueValidator from "mongoose-unique-validator";
 
 const userSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  account: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "Account",
+    select: false,
+  },
+  name: { type: String },
+  avatarLink: { type: String },
 });
 
 userSchema.plugin(uniqueValidator);
 //console.log("mongoose.models.user: " + mongoose.models.user);
-let userModel = mongoose.model("user", userSchema);
+delete mongoose.models.User;
+let userModel = mongoose.model("User", userSchema);
 export default userModel;
