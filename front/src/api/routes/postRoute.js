@@ -1,10 +1,10 @@
 import express from "express";
 let router = express.Router();
-/*
-let  post_controller = require("../controllers/postController");
+
+import * as post_controller from "../controllers/postController";
 
 router.get("/api/posts", post_controller.getPosts);
-
+/*
 router.get("/api/post/:id", post_controller.getPost);
 
 router.post("/api/newPost", post_controller.newPost);
