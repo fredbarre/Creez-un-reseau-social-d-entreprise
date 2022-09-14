@@ -34,4 +34,4 @@ async function fetchnewpost(params) {
   return responseData;
 }
 
-export default fetchpost;
+export { fetchnewpost };
