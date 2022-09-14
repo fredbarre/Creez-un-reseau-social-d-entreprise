@@ -48,7 +48,7 @@ function Header() {
               Mes posts
             </Link>
 
-            <Link className="navbar-item" to="/login">
+            <Link className="navbar-item" to="/newPost">
               Nouveau post{" "}
             </Link>
           </div>

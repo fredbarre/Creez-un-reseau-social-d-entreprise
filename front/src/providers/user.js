@@ -1,5 +1,5 @@
 async function fetchsignup(params) {
-  const response = await fetch(`http://localhost:3000/api/auth/signup`, {
+  const response = await fetch(`http://localhost:5173/api/auth/signup`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -17,3 +17,5 @@ async function fetchsignup(params) {
   //console.log(responseData);
   return responseData;
 }
+
+export { fetchsignup };

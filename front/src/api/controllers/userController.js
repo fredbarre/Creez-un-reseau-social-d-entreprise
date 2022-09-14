@@ -1,4 +1,4 @@
-import userModel from "../models/userModel";
+import accountModel from "../models/accountModel";
 import bcrypt from "bcrypt";
 import jwt from "../managers/jwt";
 
@@ -17,11 +17,11 @@ let signup = async function (req, res) {
     if (error != undefined) throw new Error("error");
     let hash = await bcrypt.hash(req.body.password, 10);
 
-    const user = new userModel({
+    const account = new accountModel({
       email: req.body.email,
       password: hash,
     });
-    user.save();
+    account.save();
     res.status(201).json({ message: "Utilisateur créé !" });
   } catch (error) {
     res.status(500).json({ error });
@@ -29,13 +29,13 @@ let signup = async function (req, res) {
 };
 
 let login = async function (req, res) {
-  let user = await userModel
+  let account = await accountModel
     .findOne({ email: req.body.email })
     .catch((error) => {
       throw res.status(500).json({ error });
     });
 
-  if (!user) {
+  if (!account) {
     return res
       .status(401)
       .json({ message: "Paire login/mot de passe incorrecte" });

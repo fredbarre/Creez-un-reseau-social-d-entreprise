@@ -14,4 +14,24 @@ const fetchpost = async function () {
   return body;
 };
 
+async function fetchnewpost(params) {
+  const response = await fetch(`http://localhost:5173/api/newPost`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(params),
+  });
+
+  if (!response.ok) {
+    const message = `An error has occured: ${response.status}`;
+    throw new Error(message);
+  }
+
+  const responseData = await response.json();
+  //console.log(responseData);
+  return responseData;
+}
+
 export default fetchpost;

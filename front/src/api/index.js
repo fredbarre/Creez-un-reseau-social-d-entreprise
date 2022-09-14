@@ -23,6 +23,6 @@ handler.use(cors);
 handler.use(express.static("images"));
 handler.use("/", userRoute);
 handler.use("/", postRoute);
-handler.use("/api", (req, res) => res.json(req.url));
+//handler.use("/api", (req, res) => res.json(req.url));
 
 //handler.use(error);
