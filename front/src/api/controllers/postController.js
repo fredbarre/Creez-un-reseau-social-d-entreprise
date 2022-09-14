@@ -19,6 +19,24 @@ export async function getPosts(req, res) {
   console.log(post);
   res.status(200).json(post);
 }
+
+export async function getPost(req, res) {
+  let post = await postModel
+    .findOne({ _id: req.params.id })
+    .populate({
+      path: "user",
+    })
+    .populate({
+      path: "comments",
+      populate: {
+        path: "user",
+      },
+    });
+
+  console.log(post);
+  res.status(200).json(post);
+}
+
 /*
 export async function getPosts(req, res) {
   let post = await postModel.find();
