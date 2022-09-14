@@ -5,7 +5,7 @@ import uniqueValidator from "mongoose-unique-validator";
 const userSchema = new mongoose.Schema({
   account: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
+    /*required: true,*/
     ref: "Account",
     select: false,
   },

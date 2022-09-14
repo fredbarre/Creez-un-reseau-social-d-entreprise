@@ -1,4 +1,5 @@
 import accountModel from "../models/accountModel";
+import userModel from "../models/userModel";
 import bcrypt from "bcrypt";
 import jwt from "../managers/jwt";
 
@@ -21,7 +22,13 @@ let signup = async function (req, res) {
       email: req.body.email,
       password: hash,
     });
+
+    const user = new userModel({});
+    user.account = account._id;
+    account.user = user._id;
+
     account.save();
+    user.save();
     res.status(201).json({ message: "Utilisateur créé !" });
   } catch (error) {
     res.status(500).json({ error });
@@ -53,7 +60,7 @@ let login = async function (req, res) {
   }
   const userId = user._id;
 
-  res.status(200).json({
+  return res.status(200).json({
     userId,
     token: jwt.sign({ userId }),
   });

@@ -5,7 +5,7 @@ async function submitSignup() {
   let password = document.getElementById("password").value;
 
   fetchsignup({ email: email, password: password });
-  //window.location.href = `./posts`;
+  window.location.href = `./posts`;
 }
 
 function SignupForm() {
