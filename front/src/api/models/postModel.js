@@ -12,6 +12,8 @@ const postSchema = new mongoose.Schema({
   ],
   link: { type: String },
   date: { type: Date, default: Date.now },
+  likes: { type: Number },
+  userLiked: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });
 delete mongoose.models.Post;
 let postModel = mongoose.model("Post", postSchema);
