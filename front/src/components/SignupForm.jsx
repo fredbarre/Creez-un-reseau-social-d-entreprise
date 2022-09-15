@@ -5,7 +5,7 @@ async function submitSignup() {
   let password = document.getElementById("password").value;
   console.log("submitsignup email " + email);
   await fetchsignup({ email: email, password: password });
-  window.location.href = `./posts`;
+  window.location.href = `./login`;
 }
 
 function SignupForm() {

@@ -1,13 +1,29 @@
+import { fetchnewpost } from "../providers/post";
+import { getStorageUser, getStorageToken } from "../util/localstorageManager";
+
+async function submitNewPost() {
+  let postTitle = document.getElementById("postTitle").value;
+  let postText = document.getElementById("postText").value;
+  let userId = getStorageUser();
+  let token = getStorageToken();
+  await fetchnewpost({ title: postTitle, post: postText, user: userId }, token);
+  //window.location.href = `./posts`;
+}
 function NewpostForm() {
   return (
     <section className="section">
       <div className="field">
         <p className="control">
-          <input className="input" type="email" placeholder="Titre du post" />
+          <input id="postTitle" className="input" placeholder="Titre du post" />
         </p>
       </div>
 
-      <textarea className="textarea" placeholder="Post" rows="10"></textarea>
+      <textarea
+        id="postText"
+        className="textarea"
+        placeholder="Post"
+        rows="10"
+      ></textarea>
       <br />
       <div className="file">
         <label className="file-label">
@@ -23,7 +39,14 @@ function NewpostForm() {
       <br />
       <div className="field">
         <p className="control">
-          <button className="button is-success">Envoyer</button>
+          <button
+            className="button is-success"
+            onClick={function () {
+              submitNewPost();
+            }}
+          >
+            Envoyer
+          </button>
         </p>
       </div>
     </section>

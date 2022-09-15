@@ -1,4 +1,4 @@
-import fetchpost from "../providers/post.js";
+import { fetchpost } from "../providers/post.js";
 
 let post = await fetchpost();
 

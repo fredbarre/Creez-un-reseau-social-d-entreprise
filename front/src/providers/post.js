@@ -1,6 +1,6 @@
 const timeout = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const fetchpost = async function () {
+export async function fetchpost() {
   //const response = await fetch("/api/post");
   //const body = await response.json();
   await timeout(300);
@@ -12,14 +12,15 @@ const fetchpost = async function () {
     link: "./src/assets/imagesposts/nuages.jpg",
   };
   return body;
-};
+}
 
-async function fetchnewpost(params) {
+async function fetchnewpost(params, token) {
   const response = await fetch(`http://localhost:5173/api/newPost`, {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      authorization: "Bearer " + token,
     },
     body: JSON.stringify(params),
   });
