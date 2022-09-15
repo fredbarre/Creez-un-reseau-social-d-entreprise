@@ -1,3 +1,22 @@
+import { setStorage } from "../util/localstorageManager";
+import { fetchlogin } from "../providers/user";
+async function submitLogin() {
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+
+  let logindata = await fetchlogin({ email: email, password: password });
+  /* console.log(
+    "submitlogin" +
+      logindata.accountId +
+      " " +
+      logindata.token +
+      "  " +
+      logindata
+  );*/
+  setStorage(logindata.accountId, logindata.token);
+  window.location.href = `./posts`;
+}
+
 function LoginForm() {
   return (
     <div>
@@ -5,7 +24,12 @@ function LoginForm() {
       <section className="section">
         <div className="field">
           <p className="control has-icons-left has-icons-right">
-            <input className="input" type="email" placeholder="Email" />
+            <input
+              id="email"
+              className="input"
+              type="email"
+              placeholder="Email"
+            />
             <span className="icon is-small is-left">
               <i className="fas fa-envelope"></i>
             </span>
@@ -16,7 +40,12 @@ function LoginForm() {
         </div>
         <div className="field">
           <p className="control has-icons-left">
-            <input className="input" type="password" placeholder="Password" />
+            <input
+              id="password"
+              className="input"
+              type="password"
+              placeholder="Password"
+            />
             <span className="icon is-small is-left">
               <i className="fas fa-lock"></i>
             </span>
@@ -24,7 +53,14 @@ function LoginForm() {
         </div>
         <div className="field">
           <p className="control">
-            <button className="button is-success">Connexion</button>
+            <button
+              className="button is-success"
+              onClick={function () {
+                submitLogin();
+              }}
+            >
+              Connexion
+            </button>
           </p>
         </div>
       </section>

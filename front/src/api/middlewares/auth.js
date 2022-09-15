@@ -1,6 +1,6 @@
 import jwt from "../managers/jwt";
 
-module.exports = (req, res, next) => {
+let auth = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.verify(token);
@@ -13,3 +13,5 @@ module.exports = (req, res, next) => {
     res.status(401).json({ error });
   }
 };
+
+export default auth;

@@ -3,8 +3,8 @@ import { fetchsignup } from "../providers/user";
 async function submitSignup() {
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
-
-  fetchsignup({ email: email, password: password });
+  console.log("submitsignup email " + email);
+  await fetchsignup({ email: email, password: password });
   window.location.href = `./posts`;
 }
 
@@ -44,7 +44,12 @@ function SignupForm() {
       </div>
       <div className="field">
         <p className="control">
-          <button className="button is-success" onClick={() => submitSignup()}>
+          <button
+            className="button is-success"
+            onClick={function () {
+              submitSignup();
+            }}
+          >
             Inscription
           </button>
         </p>

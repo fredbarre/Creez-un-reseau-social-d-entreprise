@@ -48,7 +48,7 @@ let login = async function (req, res) {
       .json({ message: "Paire login/mot de passe incorrecte" });
   }
   let valid = await bcrypt
-    .compare(req.body.password, user.password)
+    .compare(req.body.password, account.password)
     .catch((error) => {
       throw res.status(500).json({ error });
     });
@@ -58,11 +58,11 @@ let login = async function (req, res) {
       .status(401)
       .json({ message: "Paire login/mot de passe incorrecte" });
   }
-  const userId = user._id;
+  const accountId = account._id;
 
   return res.status(200).json({
-    userId,
-    token: jwt.sign({ userId }),
+    accountId,
+    token: jwt.sign({ accountId }),
   });
 };
 
