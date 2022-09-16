@@ -1,17 +1,43 @@
 import { Link } from "react-router-dom";
-import { fetchposts } from "../providers/post";
+import {
+  fetchdeletepost,
+  fetchnewcomment,
+  fetchpost,
+  fetchposts,
+  fetchsetlike,
+} from "../providers/post";
 import { getStorageUser, getStorageToken } from "../util/localstorageManager";
 
-async function submitLike() {}
-async function submitDeletePost() {}
+async function submitLike(postId) {
+  let user = getStorageUser();
+  let token = getStorageToken();
 
-async function submitCommment() {}
+  await fetchsetlike({ userId: user }, postId, token);
+}
+async function submitDeletePost(postId) {
+  let user = getStorageUser();
+  let token = getStorageToken();
 
-async function submitDetails() {}
+  await fetchdeletepost({ userId: user }, postId, token);
+}
+
+async function submitCommment(postId) {
+  let user = getStorageUser();
+  let token = getStorageToken();
+
+  await fetchnewcomment({ userId: user }, postId, token);
+}
+/*
+async function submitDetails(postId) {
+  let user = getStorageUser();
+  let token = getStorageToken();
+
+  await fetchpost(postId);
+}*/
 
 let user = getStorageUser();
 let token = getStorageToken();
-console.log("allposts user token " + user + " " + token);
+//console.log("allposts user token " + user + " " + token);
 let posts = await fetchposts(token);
 let final = [];
 

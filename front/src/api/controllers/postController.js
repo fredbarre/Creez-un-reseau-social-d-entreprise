@@ -133,13 +133,13 @@ export async function updatePost(req, res) {
 export async function setLike(req, res) {
   let postId = req.params.id;
   let userId = req.body.userId;
-  let setLikeTo = req.body.setLikeTo;
+  //let setLikeTo = req.body.setLikeTo;
 
   let post = await postModel.findOne({ _id: postId });
 
   let liked = post.userLiked.indexOf(userId) != -1;
 
-  if (liked)
+  if (liked) {
     await postModel.updateOne(
       { _id: postId },
       {
@@ -147,8 +147,7 @@ export async function setLike(req, res) {
         $pull: { userLiked: userId },
       }
     );
-
-  if (setLikeTo == 1)
+  } else {
     await postModel.updateOne(
       { _id: postId },
       {
@@ -156,6 +155,7 @@ export async function setLike(req, res) {
         $push: { userLiked: userId },
       }
     );
+  }
   return res.status(200).json({ message: "Like mis a jour" });
 }
 //export default newPost;
