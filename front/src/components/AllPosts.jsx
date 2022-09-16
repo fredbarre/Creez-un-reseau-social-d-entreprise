@@ -1,7 +1,18 @@
 import { Link } from "react-router-dom";
-import fetchposts from "../providers/posts";
+import { fetchposts } from "../providers/post";
+import { getStorageUser, getStorageToken } from "../util/localstorageManager";
 
-let posts = await fetchposts();
+async function submitLike() {}
+async function submitDeletePost() {}
+
+async function submitCommment() {}
+
+async function submitDetails() {}
+
+let user = getStorageUser();
+let token = getStorageToken();
+console.log("allposts user token " + user + " " + token);
+let posts = await fetchposts(token);
 let final = [];
 
 for (let i = 0; i < posts.length; i++) {
@@ -19,7 +30,7 @@ for (let i = 0; i < posts.length; i++) {
         <div className="media-content">
           <div className="content">
             <p>
-              <strong>{posts[i].user}</strong>
+              <strong>{posts[i].user.name}</strong>
               <br />
               {posts[i].title}
               <br />
