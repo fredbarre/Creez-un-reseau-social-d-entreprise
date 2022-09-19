@@ -1,10 +1,12 @@
 import express from "express";
+import "express-async-errors";
 import morgan from "morgan";
 
 import cors from "./middlewares/cors";
 import userRoute from "./routes/userRoute";
 import postRoute from "./routes/postRoute";
-//import error from "./middlewares/error";
+import error from "./middlewares/error";
+
 export const handler = express();
 
 handler.use(express.json());
@@ -25,4 +27,4 @@ handler.use("/", userRoute);
 handler.use("/", postRoute);
 //handler.use("/api", (req, res) => res.json(req.url));
 
-//handler.use(error);
+handler.use(error);
