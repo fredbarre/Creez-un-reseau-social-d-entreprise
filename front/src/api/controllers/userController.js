@@ -8,32 +8,27 @@ if (!env.JWT_SECRET) console.log("TOKENSECRET must be set in .env");
 const { JWT_SECRET } = env;*/
 import joischema from "../managers/joivalidator";
 
-let signup = async function (req, res) {
-  try {
-    let { error, value } = joischema.validate({
-      email: req.body.email,
-      password: req.body.password,
-    });
+export async function signup(req, res) {
+  let { error, value } = joischema.validate(req.body);
+  console.log(req.body);
+  if (error) throw error;
+  const { email, password } = req.body;
+  let hash = await bcrypt.hash(password, 10);
 
-    if (error != undefined) throw new Error("error");
-    let hash = await bcrypt.hash(req.body.password, 10);
+  const account = new accountModel({
+    email,
+    password: hash,
+  });
 
-    const account = new accountModel({
-      email: req.body.email,
-      password: hash,
-    });
+  const user = new userModel({});
+  user.account = account._id;
+  account.user = user._id;
+  console.log(user._id, account._id);
 
-    const user = new userModel({});
-    user.account = account._id;
-    account.user = user._id;
-
-    account.save();
-    user.save();
-    res.status(201).json({ message: "Utilisateur créé !" });
-  } catch (error) {
-    res.status(500).json({ error });
-  }
-};
+  await account.save();
+  await user.save();
+  res.status(201).json({ message: "Utilisateur créé !" });
+}
 
 let login = async function (req, res) {
   let account = await accountModel
@@ -59,10 +54,12 @@ let login = async function (req, res) {
       .json({ message: "Paire login/mot de passe incorrecte" });
   }
   const accountId = account._id;
+  const userId = account.user;
 
   return res.status(200).json({
     accountId,
-    token: jwt.sign({ accountId }),
+    userId,
+    token: jwt.sign({ accountId, userId }),
   });
 };
 

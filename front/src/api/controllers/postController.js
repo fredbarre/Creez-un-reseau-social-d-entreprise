@@ -16,7 +16,7 @@ export async function getPosts(req, res) {
         path: "user",
       },
     });
-
+  console.log("getPosts");
   console.log(post);
   res.status(200).json(post);
 }
@@ -107,6 +107,7 @@ export async function newPost(req, res) {
   if (error != undefined) throw new Error("error");
 
   delete postObject._id;
+  delete postObject.accountId;
 
   const post = new postModel({
     ...postObject,

@@ -35,15 +35,15 @@ async function fetchnewpost(params, token) {
   return responseData;
 }
 
-export async function fetchposts(token) {
+export async function fetchposts(params, token) {
   const response = await fetch(`http://localhost:5173/api/posts`, {
-    method: "GET",
+    method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
       authorization: "Bearer " + token,
     },
-    //body: JSON.stringify(params),
+    body: JSON.stringify(params),
   });
 
   if (!response.ok) {
@@ -56,15 +56,15 @@ export async function fetchposts(token) {
   return responseData;
 }
 
-export async function fetchpost(postId) {
+export async function fetchpost(params, postId) {
   const response = await fetch(`/api/post/${postId}`, {
-    method: "GET",
+    method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      //authorization: "Bearer " + token,
+      authorization: "Bearer " + token,
     },
-    //body: JSON.stringify(params),
+    body: JSON.stringify(params),
   });
 
   if (!response.ok) {

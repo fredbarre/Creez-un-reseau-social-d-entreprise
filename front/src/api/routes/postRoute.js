@@ -5,9 +5,9 @@ let router = express.Router();
 
 import * as post_controller from "../controllers/postController";
 
-router.get("/api/posts", auth, post_controller.getPosts);
+router.post("/api/posts", auth, post_controller.getPosts);
 
-router.get("/api/post/:id", auth, post_controller.getPost);
+router.post("/api/post/:id", auth, post_controller.getPost);
 
 router.post("/api/newPost", auth, post_controller.newPost);
 

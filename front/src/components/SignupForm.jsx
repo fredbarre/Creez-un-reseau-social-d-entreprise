@@ -44,12 +44,7 @@ function SignupForm() {
       </div>
       <div className="field">
         <p className="control">
-          <button
-            className="button is-success"
-            onClick={function () {
-              submitSignup();
-            }}
-          >
+          <button className="button is-success" onClick={submitSignup}>
             Inscription
           </button>
         </p>

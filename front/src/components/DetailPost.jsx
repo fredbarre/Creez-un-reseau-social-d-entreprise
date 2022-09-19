@@ -1,8 +1,7 @@
 import { fetchpost } from "../providers/post.js";
 
-let post = await fetchpost();
-
 function DetailPost() {
+  let post = fetchpost();
   return (
     <div>
       <br />

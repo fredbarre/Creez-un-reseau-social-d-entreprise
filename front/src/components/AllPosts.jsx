@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   fetchdeletepost,
@@ -6,7 +8,11 @@ import {
   fetchposts,
   fetchsetlike,
 } from "../providers/post";
-import { getStorageUser, getStorageToken } from "../util/localstorageManager";
+import {
+  getStorageUser,
+  getStorageToken,
+  getStorageAccount,
+} from "../util/localstorageManager";
 
 async function submitLike(postId) {
   let user = getStorageUser();
@@ -34,56 +40,62 @@ async function submitDetails(postId) {
 
   await fetchpost(postId);
 }*/
+function AllPosts({ uptime }) {
+  let userId = getStorageUser();
+  let accountId = getStorageAccount();
+  let token = getStorageToken();
 
-let user = getStorageUser();
-let token = getStorageToken();
-//console.log("allposts user token " + user + " " + token);
-let posts = await fetchposts(token);
-let final = [];
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    (async function () {
+      setPosts(await fetchposts({ accountId, userId }, token));
+    })();
+  }, [uptime]);
+  //console.log("allposts user token " + user + " " + token);
+  //let posts = fetchposts();
 
-for (let i = 0; i < posts.length; i++) {
-  final.push(
-    <div className="box column is-three-fifths is-offset-one-fifth">
-      <article className="media">
-        <div className="media-left">
-          <figure className="image is-64x64">
-            <img
-              src="https://bulma.io/images/placeholders/128x128.png"
-              alt="Image"
-            />
-          </figure>
-        </div>
-        <div className="media-content">
-          <div className="content">
-            <p>
-              <strong>{posts[i].user.name}</strong>
-              <br />
-              {posts[i].title}
-              <br />
-              {posts[i].post}
-            </p>
-          </div>
-          <nav className="level is-mobile">
-            <div className="level-left">
-              <Link className="level-item" aria-label="reply" to="/post">
-                Details
-              </Link>
-
-              <a className="level-item" aria-label="like">
-                <span className="icon is-small">
-                  <i className="fas fa-heart" aria-hidden="true"></i>
-                </span>
-              </a>
+  return (
+    <section>
+      {posts.map((post) => (
+        <div className="box column is-three-fifths is-offset-one-fifth">
+          <article className="media">
+            <div className="media-left">
+              <figure className="image is-64x64">
+                <img
+                  src="https://bulma.io/images/placeholders/128x128.png"
+                  alt="Image"
+                />
+              </figure>
             </div>
-          </nav>
-        </div>
-      </article>
-    </div>
-  );
-}
+            <div className="media-content">
+              <div className="content">
+                <p>
+                  <strong>{post.user.name}</strong>
+                  <br />
+                  {post.title}
+                  <br />
+                  {post.post}
+                </p>
+              </div>
+              <nav className="level is-mobile">
+                <div className="level-left">
+                  <Link className="level-item" aria-label="reply" to="/post">
+                    Details
+                  </Link>
 
-function AllPosts() {
-  return <section>{final}</section>;
+                  <a className="level-item" aria-label="like">
+                    <span className="icon is-small">
+                      <i className="fas fa-heart" aria-hidden="true"></i>
+                    </span>
+                  </a>
+                </div>
+              </nav>
+            </div>
+          </article>
+        </div>
+      ))}
+    </section>
+  );
 }
 
 export default AllPosts;

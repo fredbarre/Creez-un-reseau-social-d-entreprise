@@ -13,7 +13,7 @@ async function submitLogin() {
       "  " +
       logindata
   );*/
-  setStorage(logindata.accountId, logindata.token);
+  setStorage(logindata.accountId, logindata.userId, logindata.token);
   window.location.href = `./posts`;
 }
 

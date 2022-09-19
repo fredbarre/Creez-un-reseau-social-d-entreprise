@@ -1,12 +1,21 @@
 import { fetchnewpost } from "../providers/post";
-import { getStorageUser, getStorageToken } from "../util/localstorageManager";
+import {
+  getStorageUser,
+  getStorageToken,
+  getStorageAccount,
+} from "../util/localstorageManager";
 
 async function submitNewPost() {
   let postTitle = document.getElementById("postTitle").value;
   let postText = document.getElementById("postText").value;
-  let userId = getStorageUser();
+  let accountId = getStorageAccount();
   let token = getStorageToken();
-  await fetchnewpost({ title: postTitle, post: postText, user: userId }, token);
+  let userId = getStorageUser();
+
+  await fetchnewpost(
+    { title: postTitle, post: postText, user: userId, accountId },
+    token
+  );
   //window.location.href = `./posts`;
 }
 function NewpostForm() {
