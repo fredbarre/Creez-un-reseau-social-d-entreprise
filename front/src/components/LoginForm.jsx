@@ -1,23 +1,43 @@
 import { setStorage } from "../util/localstorageManager";
 import { fetchlogin } from "../providers/user";
-async function submitLogin() {
-  let email = document.getElementById("email").value;
-  let password = document.getElementById("password").value;
-
-  let logindata = await fetchlogin({ email: email, password: password });
-  /* console.log(
-    "submitlogin" +
-      logindata.accountId +
-      " " +
-      logindata.token +
-      "  " +
-      logindata
-  );*/
-  setStorage(logindata.accountId, logindata.userId, logindata.token);
-  window.location.href = `./posts`;
-}
+import { UserContext } from "../util/UserContext";
+import { useContext } from "react";
 
 function LoginForm() {
+  const { user, setUser, account, setAccount, token, setToken } =
+    useContext(UserContext);
+
+  async function submitLogin() {
+    //const { user, setUser, account, setAccount, token, setToken } = userData;
+
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    let logindata = await fetchlogin({ email: email, password: password });
+    /*console.log(
+      "submitlogin" +
+        logindata.accountId +
+        " " +
+        logindata.token +
+        "  " +
+        logindata
+    );*/
+    /*
+    const { user, setUser, account, setAccount, token, setToken } =
+      useContext(UserContext);*/
+    setUser(logindata.userId);
+    setAccount(logindata.accountId);
+    setToken(logindata.token);
+
+    console.log("login form");
+    console.log(user);
+    console.log(account);
+    console.log(token);
+
+    setStorage(logindata.accountId, logindata.userId, logindata.token);
+    //window.location.href = `./posts`;
+  }
+
   return (
     <div>
       <h1>Connexion</h1>

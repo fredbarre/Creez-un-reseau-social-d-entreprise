@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -13,6 +13,7 @@ import {
   getStorageToken,
   getStorageAccount,
 } from "../util/localstorageManager";
+import { UserContext } from "../util/UserContext";
 
 async function submitLike(postId) {
   let user = getStorageUser();
@@ -41,14 +42,20 @@ async function submitDetails(postId) {
   await fetchpost(postId);
 }*/
 function AllPosts({ uptime }) {
+  const { user, setUser, account, setAccount, token, setToken } =
+    useContext(UserContext);
+  console.log("allpost ");
+  console.log(user);
+  console.log(account);
+  console.log(token);
   let userId = getStorageUser();
   let accountId = getStorageAccount();
-  let token = getStorageToken();
+  let token2 = getStorageToken();
 
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     (async function () {
-      setPosts(await fetchposts({ accountId, userId }, token));
+      setPosts(await fetchposts({ accountId, userId }, token2));
     })();
   }, [uptime]);
   //console.log("allposts user token " + user + " " + token);

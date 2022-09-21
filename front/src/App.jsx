@@ -9,20 +9,28 @@ import NewPostPage from "./pages/NewPostPage";
 import PostPage from "./pages/postPage";
 import PostsPage from "./pages/PostsPage";
 import Header from "./components/Header";
+import { UserContext } from "./util/UserContext";
 
 function App() {
+  const [user, setUser] = useState();
+  const [account, setAccount] = useState();
+  const [token, setToken] = useState();
   return (
     <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/newPost" element={<NewPostPage />} />
-        <Route path="/post" element={<PostPage />} />
-        <Route path="/posts" element={<PostsPage />} />
-        <Route path="/myposts" element={<PostsPage />} />
-        <Route path="/settings" element={<PostsPage />} />
-      </Routes>
+      <UserContext.Provider
+        value={{ user, setUser, account, setAccount, token, setToken }}
+      >
+        <Header />
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/newPost" element={<NewPostPage />} />
+          <Route path="/post" element={<PostPage />} />
+          <Route path="/posts" element={<PostsPage />} />
+          <Route path="/myposts" element={<PostsPage />} />
+          <Route path="/settings" element={<PostsPage />} />
+        </Routes>
+      </UserContext.Provider>
     </BrowserRouter>
   );
 }
