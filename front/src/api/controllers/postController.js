@@ -2,6 +2,7 @@ import { checkPreferences } from "joi";
 import joischema from "../managers/joivalidator";
 import commentModel from "../models/commentsModel";
 import postModel from "../models/postModel";
+import mongoose from "mongoose";
 //import fsPromises from ("fs").promises;
 
 export async function getPosts(req, res) {
@@ -99,6 +100,7 @@ export async function newPost(req, res) {
   console.log("postobj ", JSON;*/
 
   const postObject = req.body;
+
   console.log("title" + postObject.title);
   let { error, value } = joischema.validate({
     title: postObject.title,
@@ -106,15 +108,24 @@ export async function newPost(req, res) {
   });
   if (error != undefined) throw new Error("error");
 
+  console.log("postObject=", postObject);
   delete postObject._id;
   delete postObject.accountId;
-
+  //delete postObject.userId;
+  console.log("postObject=", postObject);
+  console.log("userId" + req.body.userId);
   const post = new postModel({
-    ...postObject,
-    Comment: [],
+    //...postObject,
+    user: postObject.userId,
+    title: postObject.title,
+    post: postObject.post,
+    link: postObject.link,
+
+    comments: [],
     likes: 0,
     userLiked: [],
   });
+  console.log("post=", post);
   post.save();
   return res.status(201).json({ message: "post créé !" });
 }

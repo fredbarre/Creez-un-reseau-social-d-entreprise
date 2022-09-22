@@ -10,6 +10,11 @@ let auth = (req, res, next) => {
       userId: userId,
       accountId: accountId,
     };
+    console.log("auth");
+    console.log(req.body.accountId);
+    console.log(req.body.userId);
+    if (userId != req.body.userId) throw error;
+    if (accountId != req.body.accountId) throw error;
     next();
   } catch (error) {
     res.status(401).json({ error });

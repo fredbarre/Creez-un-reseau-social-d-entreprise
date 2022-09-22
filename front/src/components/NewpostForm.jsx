@@ -13,7 +13,7 @@ async function submitNewPost() {
   let userId = getStorageUser();
 
   await fetchnewpost(
-    { title: postTitle, post: postText, user: userId, accountId },
+    { title: postTitle, post: postText, userId, accountId },
     token
   );
   //window.location.href = `./posts`;

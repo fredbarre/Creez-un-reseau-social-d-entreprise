@@ -10,6 +10,7 @@ import PostPage from "./pages/postPage";
 import PostsPage from "./pages/PostsPage";
 import Header from "./components/Header";
 import { UserContext } from "./util/UserContext";
+import SettingsPage from "./pages/SettingsPage";
 
 function App() {
   const [user, setUser] = useState();
@@ -28,7 +29,7 @@ function App() {
           <Route path="/post" element={<PostPage />} />
           <Route path="/posts" element={<PostsPage />} />
           <Route path="/myposts" element={<PostsPage />} />
-          <Route path="/settings" element={<PostsPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>

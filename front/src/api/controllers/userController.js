@@ -63,4 +63,5 @@ let login = async function (req, res) {
   });
 };
 
-export default { signup, login };
+function setSettings() {}
+export default { signup, login, setSettings };

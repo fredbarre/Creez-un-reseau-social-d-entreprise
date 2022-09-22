@@ -1,7 +1,11 @@
 import mongoose from "mongoose";
 
 const postSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "User",
+  },
   title: { type: String, required: true },
   post: { type: String, required: true },
   comments: [
