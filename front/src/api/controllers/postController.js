@@ -78,7 +78,7 @@ export async function newComment(req, res) {
   if (error != undefined) throw new Error("error");
 
   const commentM = new commentModel({
-    user: req.body.user,
+    user: req.body.userId,
     comment: comment,
   });
   await postModel.updateOne(
