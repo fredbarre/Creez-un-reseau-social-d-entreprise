@@ -1,9 +1,24 @@
+import { fetchsettings } from "../providers/user";
+import {
+  getStorageUser,
+  getStorageToken,
+  getStorageAccount,
+} from "../util/localstorageManager";
+
 function SettingsForm() {
+  async function submitSettings() {
+    let userId = getStorageUser();
+    let accountId = getStorageAccount();
+    let token = getStorageToken();
+    let name = document.getElementById("name").value;
+    await fetchsettings({ accountId, userId, name }, token);
+    //window.location.href = `./posts`;
+  }
   return (
     <section className="section">
       <div className="field">
         <p className="control">
-          <input className="input" placeholder="Nom" />
+          <input id="name" className="input" placeholder="Nom" />
         </p>
       </div>
 
@@ -22,7 +37,9 @@ function SettingsForm() {
       <br />
       <div className="field">
         <p className="control">
-          <button className="button is-success">Envoyer</button>
+          <button className="button is-success" onClick={submitSettings}>
+            Envoyer
+          </button>
         </p>
       </div>
     </section>

@@ -63,5 +63,15 @@ let login = async function (req, res) {
   });
 };
 
-function setSettings() {}
+async function setSettings(req, res) {
+  let name = req.body.name;
+  let userId = req.body.userId;
+  await userModel.updateOne(
+    { _id: userId },
+    {
+      name: name,
+    }
+  );
+  return res.status(200).json({ message: "paramètres mis a jour" });
+}
 export default { signup, login, setSettings };

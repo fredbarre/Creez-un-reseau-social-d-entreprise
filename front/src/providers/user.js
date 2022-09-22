@@ -38,4 +38,25 @@ export async function fetchlogin(params) {
   return responseData;
 }
 
+export async function fetchsettings(params, token) {
+  const response = await fetch(`/api/account/settings`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      authorization: "Bearer " + token,
+    },
+    body: JSON.stringify(params),
+  });
+
+  if (!response.ok) {
+    const message = `An error has occured: ${response.status}`;
+    throw new Error(message);
+  }
+
+  const responseData = await response.json();
+  //console.log(responseData);
+  return responseData;
+}
+
 //export { fetchsignup, fetchlogin };
