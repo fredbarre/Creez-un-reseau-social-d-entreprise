@@ -19,4 +19,10 @@ router.put("/api/post/:id", auth, post_controller.updatePost);
 
 router.post("/api/post/like/:id", auth, post_controller.setLike);
 
+router.delete(
+  "/api/deleteComment/:commentid",
+  auth,
+  post_controller.deleteComment
+);
+
 export default router;

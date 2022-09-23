@@ -164,4 +164,25 @@ export async function fetchsetlike(params, postid, token) {
   return responseData;
 }
 
+export async function fetchdeletecomment(params, commentId, token) {
+  const response = await fetch(`/api/deleteComment/${commentId}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      authorization: "Bearer " + token,
+    },
+    body: JSON.stringify(params),
+  });
+
+  if (!response.ok) {
+    const message = `An error has occured: ${response.status}`;
+    throw new Error(message);
+  }
+
+  const responseData = await response.json();
+  //console.log(responseData);
+  return responseData;
+}
+
 export { fetchnewpost };

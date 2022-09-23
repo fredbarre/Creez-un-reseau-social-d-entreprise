@@ -170,4 +170,23 @@ export async function setLike(req, res) {
   }
   return res.status(200).json({ message: "Like mis a jour" });
 }
+
+export async function deleteComment(req, res) {
+  let commentId = req.body.commentId;
+  let userId = req.body.userId;
+
+  let result = await commentModel.updateOne(
+    {
+      _id: commentId,
+      user: userId,
+    },
+    {
+      comment: "--- Commentaire supprimé---",
+    }
+  );
+
+  if (result.modifiedCount != 1)
+    return res.status(400).json({ message: "Commentaire non supprimé" });
+  return res.status(200).json({ message: "Commentaire supprimé" });
+}
 //export default newPost;

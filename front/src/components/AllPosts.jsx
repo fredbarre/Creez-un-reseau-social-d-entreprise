@@ -7,6 +7,7 @@ import {
   fetchpost,
   fetchposts,
   fetchsetlike,
+  fetchdeletecomment,
 } from "../providers/post";
 import {
   getStorageUser,
@@ -20,12 +21,6 @@ async function submitLike(postId) {
   let token = getStorageToken();
 
   await fetchsetlike({ userId: user }, postId, token);
-}
-async function submitDeletePost(postId) {
-  let user = getStorageUser();
-  let token = getStorageToken();
-
-  await fetchdeletepost({ userId: user }, postId, token);
 }
 
 /*
@@ -64,12 +59,29 @@ function AllPosts({ uptime }) {
     );
   }
 
+  async function submitdeleteComment(commentId) {
+    await fetchdeletecomment(
+      { accountId, userId, commentId },
+      commentId,
+      token
+    );
+  }
+
+  async function submitDeletePost(postId) {
+    await fetchdeletepost({ accountId, userId, postId }, postId, token);
+  }
+
   return (
     <section>
       {posts.map((post) => (
         <div className="box column is-three-fifths is-offset-one-fifth">
           <article className="media">
-            <button className="delete"></button>
+            <button
+              className="delete"
+              onClick={function () {
+                submitDeletePost(post._id);
+              }}
+            ></button>
             <div className="media-left">
               <figure className="image is-64x64">
                 <img
@@ -110,7 +122,12 @@ function AllPosts({ uptime }) {
           </article>
           {post.comments.map((comment) => (
             <article className="media">
-              <button className="delete"></button>
+              <button
+                className="delete"
+                onClick={function () {
+                  submitdeleteComment(comment._id);
+                }}
+              ></button>
               <figure className="media-left">
                 <p className="image is-48x48">
                   <img src="https://bulma.io/images/placeholders/96x96.png" />
