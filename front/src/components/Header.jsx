@@ -2,10 +2,11 @@ import GroupomaniaLogo from "../assets/icon-left-font.svg";
 import SignupForm from "./SignupForm";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { UserContext } from "../contexts/UserContext";
 
 function Header() {
   const [active, setActive] = useState(false);
-
+  UserContext;
   return (
     <header>
       <nav className="navbar" role="navigation" aria-label="main navigation">

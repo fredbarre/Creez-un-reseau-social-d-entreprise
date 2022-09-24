@@ -15,7 +15,7 @@ export async function fetchpost() {
 }*/
 
 async function fetchnewpost(params, token) {
-  const response = await fetch(`http://localhost:5173/api/newPost`, {
+  const response = await fetch(`/api/post`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -35,15 +35,14 @@ async function fetchnewpost(params, token) {
   return responseData;
 }
 
-export async function fetchposts(params, token) {
-  const response = await fetch(`http://localhost:5173/api/posts`, {
-    method: "POST",
+export async function fetchposts(token) {
+  const response = await fetch(`/api/post`, {
+    method: "GET",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
       authorization: "Bearer " + token,
     },
-    body: JSON.stringify(params),
   });
 
   if (!response.ok) {
@@ -58,13 +57,13 @@ export async function fetchposts(params, token) {
 
 export async function fetchpost(params, postId) {
   const response = await fetch(`/api/post/${postId}`, {
-    method: "POST",
+    method: "GET",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
       authorization: "Bearer " + token,
     },
-    body: JSON.stringify(params),
+    //body: JSON.stringify(params),
   });
 
   if (!response.ok) {
@@ -78,7 +77,7 @@ export async function fetchpost(params, postId) {
 }
 
 export async function fetchnewcomment(params, postid, token) {
-  const response = await fetch(`/api/newComment/${postid}`, {
+  const response = await fetch(`/api/post/${postid}/comment`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -99,7 +98,7 @@ export async function fetchnewcomment(params, postid, token) {
 }
 
 export async function fetchdeletepost(params, postid, token) {
-  const response = await fetch(`http://localhost:5173/api/post/${postid}`, {
+  const response = await fetch(`/api/post/${postid}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",
@@ -119,8 +118,8 @@ export async function fetchdeletepost(params, postid, token) {
   return responseData;
 }
 
-export async function fetchupdatepost(params, token) {
-  const response = await fetch(`http://localhost:5173/api/post/${id}`, {
+export async function fetchupdatepost(params, id, token) {
+  const response = await fetch(`/api/post/${id}`, {
     method: "PUT",
     headers: {
       Accept: "application/json",
@@ -141,18 +140,15 @@ export async function fetchupdatepost(params, token) {
 }
 
 export async function fetchsetlike(params, postid, token) {
-  const response = await fetch(
-    `http://localhost:5173/api/post/like/${postid}`,
-    {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        authorization: "Bearer " + token,
-      },
-      body: JSON.stringify(params),
-    }
-  );
+  const response = await fetch(`/api/post/${postid}/like`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      authorization: "Bearer " + token,
+    },
+    body: JSON.stringify(params),
+  });
 
   if (!response.ok) {
     const message = `An error has occured: ${response.status}`;
@@ -164,8 +160,8 @@ export async function fetchsetlike(params, postid, token) {
   return responseData;
 }
 
-export async function fetchdeletecomment(params, commentId, token) {
-  const response = await fetch(`/api/deleteComment/${commentId}`, {
+export async function fetchdeletecomment(params, cid, token) {
+  const response = await fetch(`/api/post/comment/${cid}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",

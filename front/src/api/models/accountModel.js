@@ -6,6 +6,10 @@ const accountSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  role: {
+    type: [{ type: String }],
+    default: ["member"],
+  },
 });
 
 accountSchema.plugin(uniqueValidator);

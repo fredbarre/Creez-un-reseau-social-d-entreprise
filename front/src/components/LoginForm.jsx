@@ -1,10 +1,10 @@
 import { setStorage } from "../util/localstorageManager";
 import { fetchlogin } from "../providers/user";
-import { UserContext } from "../util/UserContext";
+import { UserContext } from "../contexts/UserContext";
 import { useContext } from "react";
 
 function LoginForm() {
-  const { user, setUser, account, setAccount, token, setToken } =
+  let { user, setUser, account, setAccount, token, setToken } =
     useContext(UserContext);
 
   async function submitLogin() {
@@ -22,9 +22,7 @@ function LoginForm() {
         "  " +
         logindata
     );*/
-    /*
-    const { user, setUser, account, setAccount, token, setToken } =
-      useContext(UserContext);*/
+
     setUser(logindata.userId);
     setAccount(logindata.accountId);
     setToken(logindata.token);

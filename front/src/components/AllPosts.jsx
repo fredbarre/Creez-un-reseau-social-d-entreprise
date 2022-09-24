@@ -14,7 +14,7 @@ import {
   getStorageToken,
   getStorageAccount,
 } from "../util/localstorageManager";
-import { UserContext } from "../util/UserContext";
+import { UserContext } from "../contexts/UserContext";
 
 async function submitLike(postId) {
   let user = getStorageUser();
@@ -44,7 +44,7 @@ function AllPosts({ uptime }) {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     (async function () {
-      setPosts(await fetchposts({ accountId, userId }, token));
+      setPosts(await fetchposts(token));
     })();
   }, [uptime]);
   //console.log("allposts user token " + user + " " + token);
@@ -59,29 +59,25 @@ function AllPosts({ uptime }) {
     );
   }
 
-  async function submitdeleteComment(commentId) {
-    await fetchdeletecomment(
-      { accountId, userId, commentId },
-      commentId,
-      token
-    );
+  async function submitdeleteComment(commentId, userId) {
+    console.log("submitdeletecomment");
+    console.log(commentId);
+    console.log(userId);
+    await fetchdeletecomment({ userId }, commentId, token);
   }
-
-  async function submitDeletePost(postId) {
-    await fetchdeletepost({ accountId, userId, postId }, postId, token);
+  //supprime le post avec l'id postId et utilise l'userId de l'auteur du post pour l'autorisation
+  async function submitDeletePost(postId, userId) {
+    await fetchdeletepost({ userId }, postId, token);
   }
 
   return (
     <section>
       {posts.map((post) => (
-        <div className="box column is-three-fifths is-offset-one-fifth">
+        <div
+          key={post._id}
+          className="box column is-three-fifths is-offset-one-fifth"
+        >
           <article className="media">
-            <button
-              className="delete"
-              onClick={function () {
-                submitDeletePost(post._id);
-              }}
-            ></button>
             <div className="media-left">
               <figure className="image is-64x64">
                 <img
@@ -116,18 +112,23 @@ function AllPosts({ uptime }) {
                       <i className="fas fa-heart" aria-hidden="true"></i>
                     </span>
                   </a>
+
+                  <a className="level-item" aria-label="like">
+                    <span className="icon is-small">
+                      <i
+                        className="fa-solid fa-circle-xmark has-text-danger"
+                        onClick={function () {
+                          submitDeletePost(post._id, post.user);
+                        }}
+                      ></i>
+                    </span>
+                  </a>
                 </div>
               </nav>
             </div>
           </article>
           {post.comments.map((comment) => (
-            <article className="media">
-              <button
-                className="delete"
-                onClick={function () {
-                  submitdeleteComment(comment._id);
-                }}
-              ></button>
+            <article key={comment._id} className="media">
               <figure className="media-left">
                 <p className="image is-48x48">
                   <img src="https://bulma.io/images/placeholders/96x96.png" />
@@ -144,6 +145,20 @@ function AllPosts({ uptime }) {
                   </p>
                 </div>
               </div>
+              <nav className="level is-mobile">
+                <div className="level-left">
+                  <a className="level-item" aria-label="like">
+                    <span className="icon is-small">
+                      <i
+                        className="fa-solid fa-circle-xmark has-text-danger"
+                        onClick={function () {
+                          submitdeleteComment(comment._id, comment.user);
+                        }}
+                      ></i>
+                    </span>
+                  </a>
+                </div>
+              </nav>
             </article>
           ))}
 

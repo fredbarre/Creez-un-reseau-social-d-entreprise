@@ -9,7 +9,7 @@ import NewPostPage from "./pages/NewPostPage";
 import PostPage from "./pages/postPage";
 import PostsPage from "./pages/PostsPage";
 import Header from "./components/Header";
-import { UserContext } from "./util/UserContext";
+import { UserContext } from "./contexts/UserContext";
 import SettingsPage from "./pages/SettingsPage";
 
 function App() {

@@ -1,28 +1,17 @@
 import express from "express";
-import auth from "../middlewares/auth";
+import auth, { authPost } from "../middlewares/auth";
 
 let router = express.Router();
 
 import * as post_controller from "../controllers/postController";
 
-router.post("/api/posts", auth, post_controller.getPosts);
-
-router.post("/api/post/:id", auth, post_controller.getPost);
-
-router.post("/api/newPost", auth, post_controller.newPost);
-
-router.post("/api/newComment/:id", auth, post_controller.newComment);
-
+router.get("/api/post", auth, post_controller.getPosts);
+router.post("/api/post", auth, post_controller.newPost);
+router.get("/api/post/:id", auth, post_controller.getPost);
+router.put("/api/post/:id", auth, authPost(true), post_controller.updatePost);
 router.delete("/api/post/:id", auth, post_controller.deletePost);
-
-router.put("/api/post/:id", auth, post_controller.updatePost);
-
-router.post("/api/post/like/:id", auth, post_controller.setLike);
-
-router.delete(
-  "/api/deleteComment/:commentid",
-  auth,
-  post_controller.deleteComment
-);
+router.post("/api/post/:id/comment", auth, post_controller.newComment);
+router.post("/api/post/:id/like", auth, post_controller.setLike);
+router.delete("/api/post/comment/:cid", auth, post_controller.deleteComment);
 
 export default router;

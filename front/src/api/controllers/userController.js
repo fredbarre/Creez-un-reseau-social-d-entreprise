@@ -55,11 +55,12 @@ let login = async function (req, res) {
   }
   const accountId = account._id;
   const userId = account.user;
-
+  const role = account.role;
   return res.status(200).json({
     accountId,
     userId,
-    token: jwt.sign({ accountId, userId }),
+    role,
+    token: jwt.sign({ accountId, userId, role }),
   });
 };
 

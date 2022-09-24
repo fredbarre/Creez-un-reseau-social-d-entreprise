@@ -132,6 +132,7 @@ export async function newPost(req, res) {
 
 export async function updatePost(req, res) {
   let postId = req.params.id;
+
   await postModel.updateOne(
     { _id: postId },
     {
@@ -144,7 +145,7 @@ export async function updatePost(req, res) {
 
 export async function setLike(req, res) {
   let postId = req.params.id;
-  let userId = req.body.userId;
+  let userId = req.auth.userId;
   //let setLikeTo = req.body.setLikeTo;
 
   let post = await postModel.findOne({ _id: postId });
@@ -172,8 +173,9 @@ export async function setLike(req, res) {
 }
 
 export async function deleteComment(req, res) {
-  let commentId = req.body.commentId;
-  let userId = req.body.userId;
+  //let commentId = req.body.commentId;
+  let commentId = req.params.cid;
+  let userId = req.auth.userId;
 
   let result = await commentModel.updateOne(
     {
