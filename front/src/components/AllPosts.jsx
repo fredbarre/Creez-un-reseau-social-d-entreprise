@@ -151,25 +151,20 @@ function AllPosts({ uptime }) {
                       <strong>{comment.user.name} </strong>
                       <br />
                       {comment.comment}
-
                       <br />
+                      <nav className="level is-mobile">
+                        <div className="level-left margin-left">
+                          <i
+                            className="fa-solid fa-circle-xmark has-text-danger"
+                            onClick={function () {
+                              submitdeleteComment(comment._id, comment.user);
+                            }}
+                          ></i>
+                        </div>
+                      </nav>
                     </p>
                   </div>
                 </div>
-                <nav className="level is-mobile">
-                  <div className="level-left">
-                    <a className="level-item" aria-label="like">
-                      <span className="icon is-small">
-                        <i
-                          className="fa-solid fa-circle-xmark has-text-danger"
-                          onClick={function () {
-                            submitdeleteComment(comment._id, comment.user);
-                          }}
-                        ></i>
-                      </span>
-                    </a>
-                  </div>
-                </nav>
               </article>
             ))}
 
