@@ -52,7 +52,7 @@ export async function fetchposts(token) {
 
   const responseData = await response.json();
   //console.log(responseData);
-  return responseData;
+  return responseData.reverse();
 }
 
 export async function fetchpost(params, postId) {

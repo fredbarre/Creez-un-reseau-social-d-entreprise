@@ -11,6 +11,7 @@ import PostsPage from "./pages/PostsPage";
 import Header from "./components/Header";
 import { UserContext } from "./contexts/UserContext";
 import SettingsPage from "./pages/SettingsPage";
+import { UpdateProvider } from "./contexts/Update";
 
 function App() {
   const [user, setUser] = useState();
@@ -21,16 +22,18 @@ function App() {
       <UserContext.Provider
         value={{ user, setUser, account, setAccount, token, setToken }}
       >
-        <Header />
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/newPost" element={<NewPostPage />} />
-          <Route path="/post" element={<PostPage />} />
-          <Route path="/posts" element={<PostsPage />} />
-          <Route path="/myposts" element={<PostsPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-        </Routes>
+        <UpdateProvider>
+          <Header />
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/newPost" element={<NewPostPage />} />
+            <Route path="/post" element={<PostPage />} />
+            <Route path="/posts" element={<PostsPage />} />
+            <Route path="/myposts" element={<PostsPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
+          </Routes>
+        </UpdateProvider>
       </UserContext.Provider>
     </BrowserRouter>
   );

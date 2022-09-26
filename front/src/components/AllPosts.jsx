@@ -15,6 +15,7 @@ import {
   getStorageAccount,
 } from "../util/localstorageManager";
 import { UserContext } from "../contexts/UserContext";
+import { useUpdate } from "../contexts/Update";
 
 async function submitLike(postId) {
   let user = getStorageUser();
@@ -41,14 +42,18 @@ function AllPosts({ uptime }) {
   let accountId = getStorageAccount();
   let token = getStorageToken();
 
+  const { update } = useUpdate();
+  const { lastUpdate } = useUpdate();
+
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     (async function () {
       setPosts(await fetchposts(token));
     })();
-  }, [uptime]);
+  }, [uptime, lastUpdate]);
   //console.log("allposts user token " + user + " " + token);
   //let posts = fetchposts();
+
   async function submitComment(commentTextid, postId) {
     let comment = document.getElementById(commentTextid).value;
     console.log("cmt" + comment);
@@ -57,6 +62,7 @@ function AllPosts({ uptime }) {
       postId,
       token
     );
+    update();
   }
 
   async function submitdeleteComment(commentId, userId) {
@@ -64,10 +70,12 @@ function AllPosts({ uptime }) {
     console.log(commentId);
     console.log(userId);
     await fetchdeletecomment({ userId }, commentId, token);
+    update();
   }
   //supprime le post avec l'id postId et utilise l'userId de l'auteur du post pour l'autorisation
   async function submitDeletePost(postId, userId) {
     await fetchdeletepost({ userId }, postId, token);
+    update();
   }
 
   return (
@@ -127,40 +135,43 @@ function AllPosts({ uptime }) {
               </nav>
             </div>
           </article>
-          {post.comments.map((comment) => (
-            <article key={comment._id} className="media">
-              <figure className="media-left">
-                <p className="image is-48x48">
-                  <img src="https://bulma.io/images/placeholders/96x96.png" />
-                </p>
-              </figure>
-              <div className="media-content">
-                <div className="content">
-                  <p>
-                    <strong>{comment.user.name} </strong>
-                    <br />
-                    {comment.comment}
-
-                    <br />
+          {post.comments
+            .slice(0)
+            .reverse()
+            .map((comment) => (
+              <article key={comment._id} className="media">
+                <figure className="media-left">
+                  <p className="image is-48x48">
+                    <img src="https://bulma.io/images/placeholders/96x96.png" />
                   </p>
+                </figure>
+                <div className="media-content">
+                  <div className="content">
+                    <p>
+                      <strong>{comment.user.name} </strong>
+                      <br />
+                      {comment.comment}
+
+                      <br />
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <nav className="level is-mobile">
-                <div className="level-left">
-                  <a className="level-item" aria-label="like">
-                    <span className="icon is-small">
-                      <i
-                        className="fa-solid fa-circle-xmark has-text-danger"
-                        onClick={function () {
-                          submitdeleteComment(comment._id, comment.user);
-                        }}
-                      ></i>
-                    </span>
-                  </a>
-                </div>
-              </nav>
-            </article>
-          ))}
+                <nav className="level is-mobile">
+                  <div className="level-left">
+                    <a className="level-item" aria-label="like">
+                      <span className="icon is-small">
+                        <i
+                          className="fa-solid fa-circle-xmark has-text-danger"
+                          onClick={function () {
+                            submitdeleteComment(comment._id, comment.user);
+                          }}
+                        ></i>
+                      </span>
+                    </a>
+                  </div>
+                </nav>
+              </article>
+            ))}
 
           <article className="media">
             <figure className="media-left">
