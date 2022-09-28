@@ -59,4 +59,25 @@ export async function fetchsettings(params, token) {
   return responseData;
 }
 
+export async function fetchconnected(params) {
+  const response = await fetch(`/api/account/connected`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      //authorization: "Bearer " + token,
+    },
+    body: JSON.stringify(params),
+  });
+
+  if (!response.ok) {
+    const message = `An error has occured: ${response.status}`;
+    throw new Error(message);
+  }
+
+  const responseData = await response.json();
+  console.log("fetchconnected rd=", responseData);
+  return responseData;
+}
+
 //export { fetchsignup, fetchlogin };

@@ -51,17 +51,11 @@ function AllPosts({ uptime }) {
       setPosts(await fetchposts(token));
     })();
   }, [uptime, lastUpdate]);
-  //console.log("allposts user token " + user + " " + token);
-  //let posts = fetchposts();
 
   async function submitComment(commentTextid, postId) {
     let comment = document.getElementById(commentTextid).value;
     console.log("cmt" + comment);
-    await fetchnewcomment(
-      { userId, accountId, postId, comment },
-      postId,
-      token
-    );
+    await fetchnewcomment({ postId, comment }, postId, token);
     update();
   }
 
@@ -76,6 +70,14 @@ function AllPosts({ uptime }) {
   async function submitDeletePost(postId, userId) {
     await fetchdeletepost({ userId }, postId, token);
     update();
+  }
+
+  async function submitUpdatePost() {}
+
+  async function submitUpdateComment() {}
+
+  function submitDetails(postid) {
+    window.location.href = `./post/id=postid`;
   }
 
   return (
@@ -111,7 +113,11 @@ function AllPosts({ uptime }) {
                       <i className="fas fa-reply" aria-hidden="true"></i>
                     </span>
                   </a>
-                  <Link className="level-item" aria-label="reply" to="/post">
+                  <Link
+                    className="level-item"
+                    aria-label="reply"
+                    to={"/post/" + post._id}
+                  >
                     <i className="fa-solid fa-circle-info"></i>
                   </Link>
 

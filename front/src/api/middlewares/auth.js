@@ -8,9 +8,9 @@ export let auth = (req, res, next) => {
 
     req.auth = decodedToken;
 
-    console.log("auth");
+    console.log("auth=", req.auth);
     //console.log(req.body.accountId);
-    console.log(req.body.userId);
+    //console.log(req.body.userId);
 
     next();
   } catch (error) {

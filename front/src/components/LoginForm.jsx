@@ -27,10 +27,10 @@ function LoginForm() {
     setAccount(logindata.accountId);
     setToken(logindata.token);
 
-    console.log("login form");
+    /*console.log("login form");
     console.log(user);
     console.log(account);
-    console.log(token);
+    console.log(token);*/
 
     setStorage(logindata.accountId, logindata.userId, logindata.token);
     //window.location.href = `./posts`;

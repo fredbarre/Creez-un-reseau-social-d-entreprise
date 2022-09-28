@@ -75,4 +75,21 @@ async function setSettings(req, res) {
   );
   return res.status(200).json({ message: "paramètres mis a jour" });
 }
-export default { signup, login, setSettings };
+
+async function isConnected(req, res) {
+  try {
+    let token = req.body.token;
+
+    const decodedToken = jwt.verify(token);
+    const { userId, accountId, role } = decodedToken;
+
+    let account = await accountModel.findOne({ _id: accountId });
+    if (account == null) return res.status(200).json(false);
+
+    console.log("isConnected acc=", account);
+  } catch (error) {
+    return res.status(200).json(false);
+  }
+  return res.status(200).json(true);
+}
+export default { signup, login, setSettings, isConnected };

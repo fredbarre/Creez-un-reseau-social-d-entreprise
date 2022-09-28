@@ -55,8 +55,8 @@ export async function fetchposts(token) {
   return responseData.reverse();
 }
 
-export async function fetchpost(params, postId) {
-  const response = await fetch(`/api/post/${postId}`, {
+export async function fetchpost(id, token) {
+  const response = await fetch(`/api/post/${id}`, {
     method: "GET",
     headers: {
       Accept: "application/json",

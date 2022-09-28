@@ -17,8 +17,8 @@ export async function getPosts(req, res) {
         path: "user",
       },
     });
-  console.log("getPosts");
-  console.log(post);
+  /* console.log("getPosts");
+  console.log(post);*/
   res.status(200).json(post);
 }
 
@@ -79,7 +79,7 @@ export async function newComment(req, res) {
   if (error != undefined) throw new Error("error");
 
   const commentM = new commentModel({
-    user: req.body.userId,
+    user: req.auth.userId,
     comment: comment,
   });
   await postModel.updateOne(
