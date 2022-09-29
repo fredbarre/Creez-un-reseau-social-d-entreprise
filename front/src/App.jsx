@@ -11,6 +11,7 @@ import PostsPage from "./pages/PostsPage";
 import Header from "./components/Header";
 import { UserContext } from "./contexts/UserContext";
 import SettingsPage from "./pages/SettingsPage";
+import NoPage from "./pages/NoPage";
 import { UpdateProvider } from "./contexts/Update";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <UpdateProvider>
           <Header />
           <Routes>
+            <Route path="/" element={<LoginPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/newPost" element={<NewPostPage />} />
@@ -32,6 +34,7 @@ function App() {
             <Route path="/posts" element={<PostsPage />} />
             <Route path="/myposts" element={<PostsPage />} />
             <Route path="/settings" element={<SettingsPage />} />
+            <Route path="*" element={<NoPage />} />
           </Routes>
         </UpdateProvider>
       </UserContext.Provider>
