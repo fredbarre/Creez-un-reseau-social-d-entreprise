@@ -151,7 +151,10 @@ export async function setLike(req, res) {
   let post = await postModel.findOne({ _id: postId });
 
   let liked = post.userLiked.indexOf(userId) != -1;
-
+  /*
+  console.log("setLike");
+  console.log("Liked", liked);
+*/
   if (liked) {
     await postModel.updateOne(
       { _id: postId },

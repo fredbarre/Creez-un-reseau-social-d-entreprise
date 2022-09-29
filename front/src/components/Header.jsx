@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { fetchconnected } from "../providers/user";
-import { getStorageToken } from "../util/localstorageManager";
+import { clearStorage, getStorageToken } from "../util/localstorageManager";
 import { checkPreferences } from "joi";
 import { useUpdate } from "../contexts/Update";
 
@@ -31,6 +31,11 @@ function Header(uptime) {
     update();
     return connected;
   }
+
+  function disconnect() {
+    clearStorage();
+    update();
+  }
   /*let connected = false;
   let Pconnected = connect();
   Pconnected.then(
@@ -42,13 +47,16 @@ function Header(uptime) {
       connected = false;
       /* code if some error 
     }
-  );
-  console.log(connected);
+  );*/
+  console.log(connected[0]);
   /*
   let c = connect().then();
   console.log("connect=", c);
-  let connected = c === "true";
-  console.log("connected=" + connected);*/
+  */
+
+  console.log("type connected=", typeof connected);
+  let isconnected = connected === true;
+  console.log("isconnected=" + isconnected);
   return (
     <header>
       <nav className="navbar" role="navigation" aria-label="main navigation">
@@ -101,9 +109,9 @@ function Header(uptime) {
             <div className="navbar-item">
               <div className="buttons  is-centered">
                 {connected ? (
-                  <Link className="button is-primary" to="/login">
+                  <button className="button is-primary" onClick={disconnect}>
                     <strong>Deconnexion</strong>
-                  </Link>
+                  </button>
                 ) : (
                   <div>
                     <Link className="button is-primary" to="/signup">

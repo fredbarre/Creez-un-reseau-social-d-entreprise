@@ -13,16 +13,10 @@ import {
   getStorageUser,
   getStorageToken,
   getStorageAccount,
+  getStorageRole,
 } from "../util/localstorageManager";
 import { UserContext } from "../contexts/UserContext";
 import { useUpdate } from "../contexts/Update";
-
-async function submitLike(postId) {
-  let user = getStorageUser();
-  let token = getStorageToken();
-
-  await fetchsetlike({ userId: user }, postId, token);
-}
 
 /*
 async function submitDetails(postId) {
@@ -32,15 +26,16 @@ async function submitDetails(postId) {
   await fetchpost(postId);
 }*/
 function AllPosts({ uptime }) {
-  const { user, setUser, account, setAccount, token2, setToken } =
+  let { user, setUser, account, setAccount, token, setToken } =
     useContext(UserContext);
   console.log("allpost ");
   console.log(user);
   console.log(account);
-  console.log(token2);
+  console.log(token);
   let userId = getStorageUser();
   let accountId = getStorageAccount();
-  let token = getStorageToken();
+  token = getStorageToken();
+  let role = getStorageRole();
 
   const { update } = useUpdate();
   const { lastUpdate } = useUpdate();
@@ -72,13 +67,14 @@ function AllPosts({ uptime }) {
     update();
   }
 
+  async function submitLike(postId) {
+    await fetchsetlike(postId, token);
+    update();
+  }
+
   async function submitUpdatePost() {}
 
   async function submitUpdateComment() {}
-
-  function submitDetails(postid) {
-    window.location.href = `./post/id=postid`;
-  }
 
   return (
     <section>
@@ -123,20 +119,33 @@ function AllPosts({ uptime }) {
 
                   <a className="level-item" aria-label="like">
                     <span className="icon is-small">
-                      <i className="fas fa-heart" aria-hidden="true"></i>
-                    </span>
-                  </a>
-
-                  <a className="level-item" aria-label="like">
-                    <span className="icon is-small">
                       <i
-                        className="fa-solid fa-circle-xmark has-text-danger"
+                        className="fas fa-heart"
+                        aria-hidden="true"
                         onClick={function () {
-                          submitDeletePost(post._id, post.user);
+                          submitLike(post._id);
+                        }}
+                        style={{
+                          color:
+                            post.userLiked.indexOf(userId) != -1 ? "red" : null,
                         }}
                       ></i>
                     </span>
                   </a>
+                  {post.user._id == userId || role.includes("admin") ? (
+                    <a className="level-item" aria-label="like">
+                      <span className="icon is-small">
+                        <i
+                          className="fa-solid fa-circle-xmark has-text-danger"
+                          onClick={function () {
+                            submitDeletePost(post._id, post.user._id);
+                          }}
+                        ></i>
+                      </span>
+                    </a>
+                  ) : null}
+                  {console.log(post.user)}
+                  {console.log(userId)}
                 </div>
               </nav>
             </div>
@@ -158,17 +167,20 @@ function AllPosts({ uptime }) {
                       <br />
                       {comment.comment}
                       <br />
-                      <nav className="level is-mobile">
-                        <div className="level-left margin-left">
+                    </p>
+                    <nav className="level is-mobile">
+                      <div className="level-left margin-left">
+                        {comment.user._id == userId ||
+                        role.includes("admin") ? (
                           <i
                             className="fa-solid fa-circle-xmark has-text-danger"
                             onClick={function () {
                               submitdeleteComment(comment._id, comment.user);
                             }}
                           ></i>
-                        </div>
-                      </nav>
-                    </p>
+                        ) : null}
+                      </div>
+                    </nav>
                   </div>
                 </div>
               </article>

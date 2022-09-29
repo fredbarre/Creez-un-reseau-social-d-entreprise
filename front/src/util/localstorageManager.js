@@ -1,6 +1,7 @@
-export function setStorage(account, user, token) {
+export function setStorage(account, user, role, token) {
   localStorage.setItem("account", account);
   localStorage.setItem("user", user);
+  localStorage.setItem("role", role);
   localStorage.setItem("token", token);
 }
 
@@ -12,6 +13,10 @@ export function getStorageUser() {
 }
 export function getStorageToken() {
   return localStorage.getItem("token");
+}
+
+export function getStorageRole() {
+  return localStorage.getItem("role");
 }
 
 export function clearStorage() {

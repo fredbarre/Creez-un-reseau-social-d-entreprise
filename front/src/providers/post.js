@@ -139,7 +139,7 @@ export async function fetchupdatepost(params, id, token) {
   return responseData;
 }
 
-export async function fetchsetlike(params, postid, token) {
+export async function fetchsetlike(postid, token) {
   const response = await fetch(`/api/post/${postid}/like`, {
     method: "POST",
     headers: {
@@ -147,7 +147,7 @@ export async function fetchsetlike(params, postid, token) {
       "Content-Type": "application/json",
       authorization: "Bearer " + token,
     },
-    body: JSON.stringify(params),
+    //body: JSON.stringify(params),
   });
 
   if (!response.ok) {

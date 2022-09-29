@@ -16,7 +16,7 @@ async function submitNewPost() {
     { title: postTitle, post: postText, userId, accountId },
     token
   );
-  //window.location.href = `./posts`;
+  window.location.href = `./posts`;
 }
 function NewpostForm() {
   return (
