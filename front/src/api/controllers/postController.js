@@ -68,8 +68,7 @@ export async function getComments(req, res) {
 }
 */
 export async function newComment(req, res) {
-  let postId = req.body.postId;
-  //let postId = req.params.id;
+  let postId = req.params.id;
   let comment = req.body.comment;
 
   let { error, value } = joischema.validate({

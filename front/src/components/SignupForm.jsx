@@ -1,11 +1,15 @@
 import { fetchsignup } from "../providers/user";
+import { useNavigate } from "react-router-dom";
 
 async function submitSignup() {
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
   console.log("submitsignup email " + email);
   await fetchsignup({ email: email, password: password });
-  window.location.href = `./login`;
+  let navigate = useNavigate();
+
+  navigate(`/`);
+  window.location.href = "/";
 }
 
 function SignupForm() {

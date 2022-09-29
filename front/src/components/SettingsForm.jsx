@@ -4,15 +4,37 @@ import {
   getStorageToken,
   getStorageAccount,
 } from "../util/localstorageManager";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
 
 function SettingsForm() {
+  let {
+    user,
+    setUser,
+    account,
+    setAccount,
+    role,
+    setRole,
+    token,
+    setToken,
+    connected,
+    setConnected,
+  } = useContext(UserContext);
+
+  let navigate = useNavigate();
+  if (connected !== true) {
+    navigate(`/`);
+    window.location.href = "/";
+  }
+
   async function submitSettings() {
-    let userId = getStorageUser();
-    let accountId = getStorageAccount();
-    let token = getStorageToken();
+    let userId = user; //getStorageUser();
+    let accountId = account; //getStorageAccount();
+    //let token = getStorageToken();
     let name = document.getElementById("name").value;
     await fetchsettings({ accountId, userId, name }, token);
-    //window.location.href = `./posts`;
+    navigate(`/posts`);
   }
   return (
     <section className="section">

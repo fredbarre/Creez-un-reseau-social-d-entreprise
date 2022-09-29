@@ -1,6 +1,6 @@
 import GroupomaniaLogo from "../assets/icon-left-font.svg";
 import SignupForm from "./SignupForm";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { UserContext } from "../contexts/UserContext";
@@ -8,15 +8,27 @@ import { fetchconnected } from "../providers/user";
 import { clearStorage, getStorageToken } from "../util/localstorageManager";
 import { checkPreferences } from "joi";
 import { useUpdate } from "../contexts/Update";
+import { useNavigate } from "react-router-dom";
 
 function Header(uptime) {
   const [active, setActive] = useState(false);
-  const [connected, setConnected] = useState(true);
-  UserContext;
+  let navigate = useNavigate();
+  let {
+    user,
+    setUser,
+    account,
+    setAccount,
+    role,
+    setRole,
+    token,
+    setToken,
+    connected,
+    setConnected,
+  } = useContext(UserContext);
 
   const { update } = useUpdate();
   const { lastUpdate } = useUpdate();
-
+  /*
   useEffect(() => {
     (async function () {
       setConnected(await connect());
@@ -30,11 +42,13 @@ function Header(uptime) {
 
     update();
     return connected;
-  }
+  }*/
 
   function disconnect() {
     clearStorage();
+    setConnected(false);
     update();
+    navigate(".");
   }
   /*let connected = false;
   let Pconnected = connect();
@@ -48,15 +62,12 @@ function Header(uptime) {
       /* code if some error 
     }
   );*/
-  console.log(connected[0]);
+
   /*
   let c = connect().then();
   console.log("connect=", c);
   */
 
-  console.log("type connected=", typeof connected);
-  let isconnected = connected === true;
-  console.log("isconnected=" + isconnected);
   return (
     <header>
       <nav className="navbar" role="navigation" aria-label="main navigation">

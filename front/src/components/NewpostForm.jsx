@@ -1,16 +1,37 @@
 import { fetchnewpost } from "../providers/post";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   getStorageUser,
   getStorageToken,
   getStorageAccount,
 } from "../util/localstorageManager";
+import { UserContext } from "../contexts/UserContext";
 
 async function submitNewPost() {
+  let {
+    user,
+    setUser,
+    account,
+    setAccount,
+    role,
+    setRole,
+    token,
+    setToken,
+    connected,
+    setConnected,
+  } = useContext(UserContext);
+  let navigate = useNavigate();
+  if (connected !== true) {
+    navigate(`/`);
+    window.location.href = "/";
+  }
+
   let postTitle = document.getElementById("postTitle").value;
   let postText = document.getElementById("postText").value;
-  let accountId = getStorageAccount();
-  let token = getStorageToken();
-  let userId = getStorageUser();
+  let accountId = account; //getStorageAccount();
+  //let token = getStorageToken();
+  let userId = user; // getStorageUser();
 
   await fetchnewpost(
     { title: postTitle, post: postText, userId, accountId },

@@ -18,10 +18,23 @@ function App() {
   const [user, setUser] = useState();
   const [account, setAccount] = useState();
   const [token, setToken] = useState();
+  const [role, setRole] = useState();
+  const [connected, setConnected] = useState(false);
   return (
     <BrowserRouter>
       <UserContext.Provider
-        value={{ user, setUser, account, setAccount, token, setToken }}
+        value={{
+          user,
+          setUser,
+          account,
+          setAccount,
+          role,
+          setRole,
+          token,
+          setToken,
+          connected,
+          setConnected,
+        }}
       >
         <UpdateProvider>
           <Header />

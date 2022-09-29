@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   fetchdeletepost,
   fetchnewcomment,
@@ -26,16 +26,34 @@ async function submitDetails(postId) {
   await fetchpost(postId);
 }*/
 function AllPosts({ uptime }) {
-  let { user, setUser, account, setAccount, token, setToken } =
-    useContext(UserContext);
+  let {
+    user,
+    setUser,
+    account,
+    setAccount,
+    role,
+    setRole,
+    token,
+    setToken,
+    connected,
+    setConnected,
+  } = useContext(UserContext);
+
+  let navigate = useNavigate();
+  if (connected !== true) {
+    console.log("navigate");
+    navigate(`/`);
+    window.location.href = "/";
+  }
   console.log("allpost ");
   console.log(user);
   console.log(account);
   console.log(token);
-  let userId = getStorageUser();
-  let accountId = getStorageAccount();
-  token = getStorageToken();
-  let role = getStorageRole();
+  console.log(connected);
+  let userId = user; //getStorageUser();
+  let accountId = account; //getStorageAccount();
+  //token = getStorageToken();
+  //let role = getStorageRole();
 
   const { update } = useUpdate();
   const { lastUpdate } = useUpdate();
@@ -50,7 +68,7 @@ function AllPosts({ uptime }) {
   async function submitComment(commentTextid, postId) {
     let comment = document.getElementById(commentTextid).value;
     console.log("cmt" + comment);
-    await fetchnewcomment({ postId, comment }, postId, token);
+    await fetchnewcomment({ comment }, postId, token);
     update();
   }
 

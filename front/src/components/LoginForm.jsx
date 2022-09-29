@@ -2,10 +2,27 @@ import { setStorage } from "../util/localstorageManager";
 import { fetchlogin } from "../providers/user";
 import { UserContext } from "../contexts/UserContext";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
-  let { user, setUser, account, setAccount, token, setToken } =
-    useContext(UserContext);
+  let {
+    user,
+    setUser,
+    account,
+    setAccount,
+    role,
+    setRole,
+    token,
+    setToken,
+    connected,
+    setConnected,
+  } = useContext(UserContext);
+  let navigate = useNavigate();
+
+  if (connected == true) {
+    navigate(`/posts`);
+    window.location.href = "/posts";
+  }
 
   async function submitLogin() {
     //const { user, setUser, account, setAccount, token, setToken } = userData;
@@ -18,18 +35,24 @@ function LoginForm() {
     setUser(logindata.userId);
     setAccount(logindata.accountId);
     setToken(logindata.token);
+    setRole(logindata.role);
+    connected = true;
+    setConnected(true);
+
     console.log("login form");
     console.log(user);
     console.log(account);
     console.log(token);
+    console.log(connected);
 
-    setStorage(
+    /* setStorage(
       logindata.accountId,
       logindata.userId,
       logindata.role,
       logindata.token
-    );
-    //window.location.href = `./posts`;
+    );*/
+
+    if (connected == true) navigate(`/posts`);
   }
 
   return (
