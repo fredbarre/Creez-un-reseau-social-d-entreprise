@@ -23,10 +23,6 @@ function SettingsForm() {
   } = useContext(UserContext);
 
   let navigate = useNavigate();
-  if (connected !== true) {
-    navigate(`/`);
-    window.location.href = "/";
-  }
 
   async function submitSettings() {
     let userId = user; //getStorageUser();

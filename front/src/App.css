@@ -58,3 +58,14 @@
 .margin-left {
   margin-left: 17px;
 }
+
+.bgprimary {
+  background-color: #fd2d01;
+}
+
+.colorwhite {
+  color: white;
+}
+.objcover {
+  object-fit: cover;
+}

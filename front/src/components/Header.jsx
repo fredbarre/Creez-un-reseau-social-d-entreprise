@@ -70,13 +70,18 @@ function Header(uptime) {
 
   return (
     <header>
-      <nav className="navbar" role="navigation" aria-label="main navigation">
+      <nav
+        className="navbar bgprimary"
+        role="navigation"
+        aria-label="main navigation"
+      >
         <div className="navbar-brand">
           <Link className="navbar-item" to="/">
             <img
-              src="./src/assets/icon-left-fontadjusted.png"
+              src="\src\assets\icon-left-font-monochrome-white.png"
               width="112"
               height="28"
+              className="objcover"
             />
           </Link>
 
@@ -100,19 +105,19 @@ function Header(uptime) {
         >
           {connected ? (
             <div className="navbar-start">
-              <Link className="navbar-item" to="/settings">
+              <Link className="navbar-item colorwhite" to="/settings">
                 Mon profil
               </Link>
-              <Link className="navbar-item" to="/posts">
+              <Link className="navbar-item colorwhite" to="/posts">
                 Tous les posts
               </Link>
 
-              <Link className="navbar-item" to="/myposts">
+              <Link className="navbar-item colorwhite" to="/myposts">
                 Mes posts
               </Link>
 
-              <Link className="navbar-item" to="/newPost">
-                Nouveau post{" "}
+              <Link className="navbar-item colorwhite" to="/newPost">
+                Nouveau post
               </Link>
             </div>
           ) : null}

@@ -30,6 +30,7 @@ export async function fetchlogin(params) {
 
   if (!response.ok) {
     const message = `An error has occured: ${response.status}`;
+    //console.log(await response.json());
     throw new Error(message);
   }
 

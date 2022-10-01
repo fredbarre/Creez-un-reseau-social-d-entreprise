@@ -17,16 +17,8 @@ function LoginForm() {
     connected,
     setConnected,
   } = useContext(UserContext);
-  let navigate = useNavigate();
-
-  if (connected == true) {
-    navigate(`/posts`);
-    window.location.href = "/posts";
-  }
 
   async function submitLogin() {
-    //const { user, setUser, account, setAccount, token, setToken } = userData;
-
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
 
@@ -52,7 +44,10 @@ function LoginForm() {
       logindata.token
     );*/
 
-    if (connected == true) navigate(`/posts`);
+    navigator.serviceWorker.controller.postMessage({
+      type: "SET_TOKEN",
+      token: logindata.token,
+    });
   }
 
   return (

@@ -17,11 +17,6 @@ function DetailPost({ uptime }) {
     connected,
     setConnected,
   } = useContext(UserContext);
-  let navigate = useNavigate();
-  if (connected !== true) {
-    navigate(`/`);
-    window.location.href = "/";
-  }
 
   const { id } = useParams();
   console.log("detailPost id=" + id);

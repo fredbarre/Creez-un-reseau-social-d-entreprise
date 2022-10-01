@@ -9,7 +9,6 @@ async function submitSignup() {
   let navigate = useNavigate();
 
   navigate(`/`);
-  window.location.href = "/";
 }
 
 function SignupForm() {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 
 import LoginPage from "./pages/LoginPage";
@@ -19,7 +19,19 @@ function App() {
   const [account, setAccount] = useState();
   const [token, setToken] = useState();
   const [role, setRole] = useState();
-  const [connected, setConnected] = useState(false);
+  const [connected, setConnected] = useState();
+
+  function IsGuest({ to }) {
+    const To = to;
+    if (connected) return <Navigate to="/posts" />;
+    return <To />;
+  }
+  function IsAuth({ to }) {
+    const To = to;
+    if (!connected) return <Navigate to="/login" />;
+    return <To />;
+  }
+
   return (
     <BrowserRouter>
       <UserContext.Provider
@@ -39,14 +51,14 @@ function App() {
         <UpdateProvider>
           <Header />
           <Routes>
-            <Route path="/" element={<LoginPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
-            <Route path="/newPost" element={<NewPostPage />} />
-            <Route path="/post/:id" element={<PostPage />} />
-            <Route path="/posts" element={<PostsPage />} />
-            <Route path="/myposts" element={<PostsPage />} />
-            <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/" element={<IsAuth to={PostsPage} />} />
+            <Route path="/login" element={<IsGuest to={LoginPage} />} />
+            <Route path="/signup" element={<IsGuest to={SignupPage} />} />
+            <Route path="/newPost" element={<IsAuth to={NewPostPage} />} />
+            <Route path="/post/:id" element={<IsAuth to={PostPage} />} />
+            <Route path="/posts" element={<IsAuth to={PostsPage} />} />
+            <Route path="/myposts" element={<IsAuth to={PostsPage} />} />
+            <Route path="/settings" element={<IsAuth to={SettingsPage} />} />
             <Route path="*" element={<NoPage />} />
           </Routes>
         </UpdateProvider>

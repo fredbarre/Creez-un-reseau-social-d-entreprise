@@ -21,11 +21,6 @@ async function submitNewPost() {
     connected,
     setConnected,
   } = useContext(UserContext);
-  let navigate = useNavigate();
-  if (connected !== true) {
-    navigate(`/`);
-    window.location.href = "/";
-  }
 
   let postTitle = document.getElementById("postTitle").value;
   let postText = document.getElementById("postText").value;
