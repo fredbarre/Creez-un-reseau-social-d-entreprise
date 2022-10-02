@@ -7,8 +7,9 @@ import {
   getStorageAccount,
 } from "../util/localstorageManager";
 import { UserContext } from "../contexts/UserContext";
+import { fetchsendavatar } from "../providers/user";
 
-async function submitNewPost() {
+function NewpostForm() {
   let {
     user,
     setUser,
@@ -21,28 +22,33 @@ async function submitNewPost() {
     connected,
     setConnected,
   } = useContext(UserContext);
+  async function submitNewPost() {
+    let postTitle = document.getElementById("postTitle").value;
+    let postText = document.getElementById("postText").value;
+    let accountId = account; //getStorageAccount();
+    //let token = getStorageToken();
+    let userId = user; // getStorageUser();
 
-  let postTitle = document.getElementById("postTitle").value;
-  let postText = document.getElementById("postText").value;
-  let accountId = account; //getStorageAccount();
-  //let token = getStorageToken();
-  let userId = user; // getStorageUser();
+    await fetchnewpost(
+      { title: postTitle, post: postText, userId, accountId },
+      token
+    );
 
-  await fetchnewpost(
-    { title: postTitle, post: postText, userId, accountId },
-    token
-  );
-  window.location.href = `./posts`;
-}
-function NewpostForm() {
+    let file = document.getElementById("file").files[0].name;
+
+    console.log(file);
+    await fetchsendavatar(file, token);
+    //window.location.href = `./posts`;
+  }
+
   return (
     <section className="section">
-      <div className="field">
-        <p className="control">
-          <input id="postTitle" className="input" placeholder="Titre du post" />
-        </p>
-      </div>
-
+      
+      <input id="postTitle" className="input" placeholder="Titre du post" />
+        
+    
+      <br />
+      <br />
       <textarea
         id="postText"
         className="textarea"
@@ -50,9 +56,9 @@ function NewpostForm() {
         rows="10"
       ></textarea>
       <br />
-      <div className="file">
+      
         <label className="file-label">
-          <input className="file-input" type="file" name="resume" />
+          <input className="file-input" type="file" name="resume" id="file" />
           <span className="file-cta">
             <span className="file-icon">
               <i className="fas fa-upload"></i>
@@ -60,7 +66,7 @@ function NewpostForm() {
             <span className="file-label">Choisir une image…</span>
           </span>
         </label>
-      </div>
+      
       <br />
       <div className="field">
         <p className="control">

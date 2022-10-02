@@ -81,4 +81,32 @@ export async function fetchconnected(params) {
   return responseData;
 }
 
+export async function fetchsendavatar(file, token) {
+  console.log("file", file);
+  let bodyContent = new FormData();
+  bodyContent.append("image", file);
+
+  console.log("sendavatar file");
+  console.log(bodyContent);
+
+  const response = await fetch(`/api/user/avatar`, {
+    method: "POST",
+    headers: {
+      Accept: "*/*",
+      authorization: "Bearer " + token,
+    },
+    body: bodyContent,
+   // body:file,
+  });
+
+  if (!response.ok) {
+    const message = `An error has occured: ${response.status}`;
+    throw new Error(message);
+  }
+
+  const responseData = await response.json();
+  //console.log("fetchconnected rd=", responseData);
+  return responseData;
+}
+
 //export { fetchsignup, fetchlogin };

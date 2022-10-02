@@ -92,4 +92,13 @@ async function isConnected(req, res) {
   }
   return res.status(200).json(true);
 }
-export default { signup, login, setSettings, isConnected };
+
+async function uploadAvatar(req, res) {
+  console.log("uploadavatar");
+  console.log("body");
+  console.log(req.body);
+  console.log("file");
+  console.log(req.file);
+  return res.status(200);
+}
+export default { signup, login, setSettings, isConnected, uploadAvatar };
