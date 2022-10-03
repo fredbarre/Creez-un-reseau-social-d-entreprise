@@ -1,3 +1,4 @@
+import FormData from "form-data";
 export async function fetchsignup(params) {
   const response = await fetch(`/api/auth/signup`, {
     method: "POST",
@@ -83,12 +84,13 @@ export async function fetchconnected(params) {
 
 export async function fetchsendavatar(file, token) {
   console.log("file", file);
+
   let bodyContent = new FormData();
   bodyContent.append("image", file);
 
-  console.log("sendavatar file");
+  console.log("sendavatar body");
   console.log(bodyContent);
-
+  console.log("get", bodyContent.get("image"));
   const response = await fetch(`/api/user/avatar`, {
     method: "POST",
     headers: {
@@ -96,7 +98,6 @@ export async function fetchsendavatar(file, token) {
       authorization: "Bearer " + token,
     },
     body: bodyContent,
-   // body:file,
   });
 
   if (!response.ok) {

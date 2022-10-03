@@ -13,6 +13,6 @@ router.post("/api/account/settings", auth, user_controller.setSettings);
 
 router.post("/api/account/connected", user_controller.isConnected);
 
-router.post("/api/user/avatar", /*auth,*/ multer, user_controller.uploadAvatar);
+router.post("/api/user/avatar", auth, multer, user_controller.uploadAvatar);
 
 export default router;

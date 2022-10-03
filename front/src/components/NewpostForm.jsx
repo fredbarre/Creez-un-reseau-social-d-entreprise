@@ -34,7 +34,7 @@ function NewpostForm() {
       token
     );
 
-    let file = document.getElementById("file").files[0].name;
+    let file = document.getElementById("file").files[0];
 
     console.log(file);
     await fetchsendavatar(file, token);
@@ -43,10 +43,8 @@ function NewpostForm() {
 
   return (
     <section className="section">
-      
       <input id="postTitle" className="input" placeholder="Titre du post" />
-        
-    
+
       <br />
       <br />
       <textarea
@@ -56,17 +54,17 @@ function NewpostForm() {
         rows="10"
       ></textarea>
       <br />
-      
-        <label className="file-label">
-          <input className="file-input" type="file" name="resume" id="file" />
-          <span className="file-cta">
-            <span className="file-icon">
-              <i className="fas fa-upload"></i>
-            </span>
-            <span className="file-label">Choisir une image…</span>
+
+      <label className="file-label">
+        <input className="file-input" type="file" name="resume" id="file" />
+        <span className="file-cta">
+          <span className="file-icon">
+            <i className="fas fa-upload"></i>
           </span>
-        </label>
-      
+          <span className="file-label">Choisir une image…</span>
+        </span>
+      </label>
+
       <br />
       <div className="field">
         <p className="control">

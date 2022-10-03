@@ -99,6 +99,6 @@ async function uploadAvatar(req, res) {
   console.log(req.body);
   console.log("file");
   console.log(req.file);
-  return res.status(200);
+  return res.status(200).json("upload réussi");
 }
 export default { signup, login, setSettings, isConnected, uploadAvatar };
