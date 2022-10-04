@@ -99,7 +99,11 @@ function AllPosts({ uptime }) {
             <div className="media-left">
               <figure className="image is-64x64">
                 <img
-                  src="https://bulma.io/images/placeholders/128x128.png"
+                  src={
+                    post.user.avatarLink
+                      ? post.user.avatarLink
+                      : "\\src\\assets\\placeholder.jpg"
+                  }
                   alt="Image"
                 />
               </figure>
@@ -169,7 +173,13 @@ function AllPosts({ uptime }) {
               <article key={comment._id} className="media">
                 <figure className="media-left">
                   <p className="image is-48x48">
-                    <img src="https://bulma.io/images/placeholders/96x96.png" />
+                    <img
+                      src={
+                        comment.user.avatarLink
+                          ? comment.user.avatarLink
+                          : "\\src\\assets\\placeholder.jpg"
+                      }
+                    />
                   </p>
                 </figure>
                 <div className="media-content">
@@ -201,7 +211,7 @@ function AllPosts({ uptime }) {
           <article className="media">
             <figure className="media-left">
               <p className="image is-64x64">
-                <img src="https://bulma.io/images/placeholders/128x128.png" />
+                <img src="\src\assets\placeholder.jpg" />
               </p>
             </figure>
             <div className="media-content">

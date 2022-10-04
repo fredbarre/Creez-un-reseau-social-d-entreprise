@@ -7,6 +7,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
+import { fetchsendavatar } from "../providers/user";
 
 function SettingsForm() {
   let {
@@ -29,7 +30,11 @@ function SettingsForm() {
     let accountId = account; //getStorageAccount();
     //let token = getStorageToken();
     let name = document.getElementById("name").value;
-    await fetchsettings({ accountId, userId, name }, token);
+
+    let file = document.getElementById("file").files[0];
+    let filename = document.getElementById("file").value;
+    if (name) await fetchsettings({ name }, token);
+    if (filename) await fetchsendavatar(file, token);
     navigate(`/posts`);
   }
   return (
@@ -43,7 +48,7 @@ function SettingsForm() {
       <br />
       <div className="file">
         <label className="file-label">
-          <input className="file-input" type="file" name="resume" />
+          <input className="file-input" type="file" name="resume" id="file" />
           <span className="file-cta">
             <span className="file-icon">
               <i className="fas fa-upload"></i>

@@ -2,6 +2,7 @@ import accountModel from "../models/accountModel";
 import userModel from "../models/userModel";
 import bcrypt from "bcrypt";
 import jwt from "../managers/jwt";
+import fs from "fs";
 
 /*import env from "../managers/env";
 if (!env.JWT_SECRET) console.log("TOKENSECRET must be set in .env");
@@ -66,7 +67,7 @@ let login = async function (req, res) {
 
 async function setSettings(req, res) {
   let name = req.body.name;
-  let userId = req.body.userId;
+  let userId = req.auth.userId;
   await userModel.updateOne(
     { _id: userId },
     {
@@ -94,11 +95,22 @@ async function isConnected(req, res) {
 }
 
 async function uploadAvatar(req, res) {
-  console.log("uploadavatar");
-  console.log("body");
-  console.log(req.body);
-  console.log("file");
-  console.log(req.file);
-  return res.status(200).json("upload réussi");
+  console.log(req.file.path);
+  let userId = req.auth.userId;
+  let user = await userModel.findOne({ _id: userId });
+
+  //fs.promises
+  try {
+    await fs.promises.unlink(user.avatarLink);
+  } catch (error) {}
+
+  await userModel.updateOne(
+    { _id: userId },
+    {
+      avatarLink: req.file.path,
+    }
+  );
+
+  return res.status(200).json(req.file);
 }
 export default { signup, login, setSettings, isConnected, uploadAvatar };

@@ -193,4 +193,6 @@ export async function deleteComment(req, res) {
     return res.status(400).json({ message: "Commentaire non supprimé" });
   return res.status(200).json({ message: "Commentaire supprimé" });
 }
+
+export async function uploadPostImage(req, res) {}
 //export default newPost;
