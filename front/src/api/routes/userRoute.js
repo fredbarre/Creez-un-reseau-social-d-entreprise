@@ -11,8 +11,6 @@ router.post("/api/auth/login", user_controller.login);
 
 router.post("/api/account/settings", auth, user_controller.setSettings);
 
-router.post("/api/account/connected", user_controller.isConnected);
-
 router.post("/api/user/avatar", auth, multer, user_controller.uploadAvatar);
 
 export default router;

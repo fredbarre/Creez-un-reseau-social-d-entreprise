@@ -14,9 +14,11 @@ import {
   getStorageToken,
   getStorageAccount,
   getStorageRole,
+  getStorageAvatarLink,
 } from "../util/localstorageManager";
 import { UserContext } from "../contexts/UserContext";
 import { useUpdate } from "../contexts/Update";
+import { checkPreferences } from "joi";
 
 /*
 async function submitDetails(postId) {
@@ -48,7 +50,8 @@ function AllPosts({ uptime }) {
   let accountId = account; //getStorageAccount();
   //token = getStorageToken();
   //let role = getStorageRole();
-
+  let avatarLink = getStorageAvatarLink();
+  console.log("avatarLink allposts", avatarLink);
   const { update } = useUpdate();
   const { lastUpdate } = useUpdate();
 
@@ -211,7 +214,11 @@ function AllPosts({ uptime }) {
           <article className="media">
             <figure className="media-left">
               <p className="image is-64x64">
-                <img src="\src\assets\placeholder.jpg" />
+                <img
+                  src={
+                    avatarLink ? avatarLink : "\\src\\assets\\placeholder.jpg"
+                  }
+                />
               </p>
             </figure>
             <div className="media-content">

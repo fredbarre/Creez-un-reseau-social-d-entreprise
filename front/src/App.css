@@ -69,3 +69,7 @@
 .objcover {
   object-fit: cover;
 }
+
+body {
+  background-color: lightgray;
+}

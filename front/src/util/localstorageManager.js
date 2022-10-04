@@ -5,6 +5,12 @@ export function setStorage(account, user, role, token) {
   localStorage.setItem("token", token);
 }
 
+export function setAvatarLink(link) {
+  localStorage.setItem("link", link);
+}
+export function getStorageAvatarLink() {
+  return localStorage.getItem("link");
+}
 export function getStorageAccount() {
   return localStorage.getItem("account");
 }

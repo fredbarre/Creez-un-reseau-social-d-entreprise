@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
     select: false,
   },
   name: { type: String },
-  avatarLink: { type: String },
+  avatarLink: { type: String, default: "" },
 });
 
 userSchema.plugin(uniqueValidator);

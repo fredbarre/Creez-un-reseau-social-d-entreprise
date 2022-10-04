@@ -1,4 +1,4 @@
-import { setStorage } from "../util/localstorageManager";
+import { setAvatarLink } from "../util/localstorageManager";
 import { fetchlogin } from "../providers/user";
 import { UserContext } from "../contexts/UserContext";
 import { useContext } from "react";
@@ -30,6 +30,7 @@ function LoginForm() {
     setRole(logindata.role);
     connected = true;
     setConnected(true);
+    setAvatarLink(logindata.avatarLink);
 
     console.log("login form");
     console.log(user);

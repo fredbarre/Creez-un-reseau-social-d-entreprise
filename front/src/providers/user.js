@@ -110,4 +110,24 @@ export async function fetchsendavatar(file, token) {
   return responseData;
 }
 
+export async function fetchgetcurrentuser(token) {
+  const response = await fetch(`/api/user`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      authorization: "Bearer " + token,
+    },
+  });
+
+  if (!response.ok) {
+    const message = `An error has occured: ${response.status}`;
+    throw new Error(message);
+  }
+
+  const responseData = await response.json();
+  console.log("fetchconnected rd=", responseData);
+  return responseData;
+}
+
 //export { fetchsignup, fetchlogin };

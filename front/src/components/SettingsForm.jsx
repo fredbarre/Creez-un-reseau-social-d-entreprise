@@ -3,6 +3,7 @@ import {
   getStorageUser,
   getStorageToken,
   getStorageAccount,
+  setAvatarLink,
 } from "../util/localstorageManager";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
@@ -34,7 +35,11 @@ function SettingsForm() {
     let file = document.getElementById("file").files[0];
     let filename = document.getElementById("file").value;
     if (name) await fetchsettings({ name }, token);
-    if (filename) await fetchsendavatar(file, token);
+    if (filename) {
+      let avatar = await fetchsendavatar(file, token);
+      setAvatarLink(avatar.path);
+    }
+
     navigate(`/posts`);
   }
   return (

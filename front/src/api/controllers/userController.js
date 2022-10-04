@@ -57,10 +57,13 @@ let login = async function (req, res) {
   const accountId = account._id;
   const userId = account.user;
   const role = account.role;
+  let user = await userModel.findOne({ _id: userId });
+  let avatarLink = user.avatarLink;
   return res.status(200).json({
     accountId,
     userId,
     role,
+    avatarLink,
     token: jwt.sign({ accountId, userId, role }),
   });
 };
@@ -75,23 +78,6 @@ async function setSettings(req, res) {
     }
   );
   return res.status(200).json({ message: "paramètres mis a jour" });
-}
-
-async function isConnected(req, res) {
-  try {
-    let token = req.body.token;
-
-    const decodedToken = jwt.verify(token);
-    const { userId, accountId, role } = decodedToken;
-
-    let account = await accountModel.findOne({ _id: accountId });
-    if (account == null) return res.status(200).json(false);
-
-    console.log("isConnected acc=", account);
-  } catch (error) {
-    return res.status(200).json(false);
-  }
-  return res.status(200).json(true);
 }
 
 async function uploadAvatar(req, res) {
@@ -112,4 +98,10 @@ async function uploadAvatar(req, res) {
 
   return res.status(200).json(req.file);
 }
-export default { signup, login, setSettings, isConnected, uploadAvatar };
+
+export default {
+  signup,
+  login,
+  setSettings,
+  uploadAvatar,
+};
