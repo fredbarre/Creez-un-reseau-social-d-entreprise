@@ -3,7 +3,7 @@ import joischema from "../managers/joivalidator";
 import commentModel from "../models/commentsModel";
 import postModel from "../models/postModel";
 import mongoose from "mongoose";
-//import fsPromises from ("fs").promises;
+import fs from "fs";
 
 export async function getPosts(req, res) {
   let post = await postModel
@@ -48,6 +48,12 @@ export async function deletePost(req, res) {
   comments.forEach(async function (element) {
     await commentModel.deleteMany({ _id: element });
   });
+
+  try {
+    await fs.promises.unlink(post.link);
+  } catch (error) {
+    console.log("error" + error);
+  }
 
   await postModel.deleteOne({ _id: postId });
 
