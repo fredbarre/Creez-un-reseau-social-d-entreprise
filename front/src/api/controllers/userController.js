@@ -95,11 +95,10 @@ async function isConnected(req, res) {
 }
 
 async function uploadAvatar(req, res) {
-  console.log(req.file.path);
+  //console.log(req.file.path);
   let userId = req.auth.userId;
   let user = await userModel.findOne({ _id: userId });
 
-  //fs.promises
   try {
     await fs.promises.unlink(user.avatarLink);
   } catch (error) {}

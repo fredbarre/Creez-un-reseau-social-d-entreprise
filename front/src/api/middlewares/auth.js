@@ -21,7 +21,7 @@ export let auth = (req, res, next) => {
 export let authPost = (allowAdmin) => (req, res, next) => {
   if (allowAdmin && req.auth.role.includes("admin")) return next();
 
-  if (userId != req.body.userId) throw error;
+  if (req.auth.userId != req.body.userId) throw error;
   //if (accountId != req.body.accountId) throw error;
   next();
 };

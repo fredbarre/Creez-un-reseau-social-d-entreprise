@@ -51,7 +51,7 @@ function DetailPost({ uptime }) {
       <br />
       {link != "" ? (
         <img
-          src={link}
+          src={`\\${link}`}
           width="256"
           height="256"
           className="column is-half is-offset-one-quarter"

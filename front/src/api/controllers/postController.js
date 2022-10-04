@@ -124,9 +124,9 @@ export async function newPost(req, res) {
     likes: 0,
     userLiked: [],
   });
-  console.log("post=", post);
+  //console.log("post=", post);
   post.save();
-  return res.status(201).json({ message: "post créé !" });
+  return res.status(201).json(post);
 }
 
 export async function updatePost(req, res) {
@@ -194,5 +194,26 @@ export async function deleteComment(req, res) {
   return res.status(200).json({ message: "Commentaire supprimé" });
 }
 
-export async function uploadPostImage(req, res) {}
+export async function uploadPostImage(req, res) {
+  //let userId = req.auth.userId;
+  let postId = req.params.id;
+  let post = await postModel.findOne({ _id: postId });
+  //console.log("upload postuser", postId);
+  if (post.user != req.auth.userId) {
+    return res.status(400).json({ message: "autorisation non accordée" });
+  }
+
+  try {
+    await fs.promises.unlink(post.link);
+  } catch (error) {}
+
+  await postModel.updateOne(
+    { _id: postId },
+    {
+      link: req.file.path,
+    }
+  );
+
+  return res.status(200).json(req.file);
+}
 //export default newPost;

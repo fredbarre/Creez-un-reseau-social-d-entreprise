@@ -181,4 +181,26 @@ export async function fetchdeletecomment(params, cid, token) {
   return responseData;
 }
 
+export async function fetchsendimage(file, postId, token) {
+  let bodyContent = new FormData();
+  bodyContent.append("image", file);
+
+  const response = await fetch(`/api/post/${postId}/image`, {
+    method: "POST",
+    headers: {
+      Accept: "*/*",
+      authorization: "Bearer " + token,
+    },
+    body: bodyContent,
+  });
+
+  if (!response.ok) {
+    const message = `An error has occured: ${response.status}`;
+    throw new Error(message);
+  }
+
+  const responseData = await response.json();
+  return responseData;
+}
+
 export { fetchnewpost };
