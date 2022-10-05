@@ -87,8 +87,6 @@ function AllPosts({ uptime }) {
     update();
   }
 
-  async function submitUpdateComment() {}
-
   return (
     <section>
       {posts.map((post) => (
@@ -113,6 +111,14 @@ function AllPosts({ uptime }) {
               <div className="content">
                 <p>
                   <strong>{post.user.name}</strong>
+                  {post.link != "" ? (
+                    <img
+                      src={`\\${post.link}`}
+                      width="256"
+                      height="256"
+                      className="column is-11"
+                    />
+                  ) : null}
                   <br />
                   {post.title}
                   <br />
