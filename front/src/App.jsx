@@ -13,6 +13,7 @@ import { UserContext } from "./contexts/UserContext";
 import SettingsPage from "./pages/SettingsPage";
 import NoPage from "./pages/NoPage";
 import { UpdateProvider } from "./contexts/Update";
+import CommentPage from "./pages/CommentPage";
 
 function App() {
   const [user, setUser] = useState();
@@ -55,10 +56,12 @@ function App() {
             <Route path="/login" element={<IsGuest to={LoginPage} />} />
             <Route path="/signup" element={<IsGuest to={SignupPage} />} />
             <Route path="/newPost" element={<IsAuth to={NewPostPage} />} />
+            <Route path="/newPost/:id" element={<IsAuth to={NewPostPage} />} />
             <Route path="/post/:id" element={<IsAuth to={PostPage} />} />
             <Route path="/posts" element={<IsAuth to={PostsPage} />} />
             <Route path="/myposts" element={<IsAuth to={PostsPage} />} />
             <Route path="/settings" element={<IsAuth to={SettingsPage} />} />
+            <Route path="/comment/:id" element={<IsAuth to={CommentPage} />} />
             <Route path="*" element={<NoPage />} />
           </Routes>
         </UpdateProvider>

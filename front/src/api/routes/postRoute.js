@@ -24,6 +24,12 @@ router.delete(
   authPost(true),
   post_controller.deleteComment
 );
+router.put(
+  "/api/post/comment/:cid",
+  auth,
+  authPost(true),
+  post_controller.updateComment
+);
 router.post(
   "/api/post/:id/image",
   auth,

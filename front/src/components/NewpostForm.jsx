@@ -1,6 +1,10 @@
-import { fetchnewpost, fetchsendimage } from "../providers/post";
+import {
+  fetchnewpost,
+  fetchsendimage,
+  fetchupdatepost,
+} from "../providers/post";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   getStorageUser,
   getStorageToken,
@@ -23,6 +27,8 @@ function NewpostForm() {
     setConnected,
   } = useContext(UserContext);
   let navigate = useNavigate();
+  const { id } = useParams();
+  console.log("newpostparams", id);
   async function submitNewPost() {
     let postTitle = document.getElementById("postTitle").value;
     let postText = document.getElementById("postText").value;
@@ -30,16 +36,24 @@ function NewpostForm() {
     //let token = getStorageToken();
     let userId = user; // getStorageUser();
 
-    let post = await fetchnewpost(
-      { title: postTitle, post: postText, userId, accountId },
-      token
-    );
-
     let file = document.getElementById("file").files[0];
     let filename = document.getElementById("file").value;
 
-    if (filename) await fetchsendimage(file, post._id, token);
-    //window.location.href = `./posts`;
+    if (!id) {
+      let post = await fetchnewpost(
+        { title: postTitle, post: postText, userId, accountId },
+        token
+      );
+
+      if (filename) await fetchsendimage(file, post._id, token);
+    } else {
+      let post = await fetchupdatepost(
+        { title: postTitle, post: postText, userId },
+        id,
+        token
+      );
+      if (filename) await fetchsendimage(file, id, token);
+    }
 
     navigate(`/posts`);
   }

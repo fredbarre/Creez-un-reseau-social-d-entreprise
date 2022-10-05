@@ -147,6 +147,17 @@ export async function updatePost(req, res) {
   );
   return res.status(200).json({ message: "post mis a jour" });
 }
+export async function updateComment(req, res) {
+  let commentId = req.params.cid;
+  let comment = req.body.comment;
+  await commentModel.updateOne(
+    { _id: commentId },
+    {
+      comment: comment,
+    }
+  );
+  return res.status(200).json({ message: "commentaire mis a jour" });
+}
 
 export async function setLike(req, res) {
   let postId = req.params.id;

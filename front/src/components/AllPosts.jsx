@@ -87,8 +87,6 @@ function AllPosts({ uptime }) {
     update();
   }
 
-  async function submitUpdatePost() {}
-
   async function submitUpdateComment() {}
 
   return (
@@ -151,6 +149,17 @@ function AllPosts({ uptime }) {
                       ></i>
                     </span>
                   </a>
+
+                  {post.user._id == userId || role.includes("admin") ? (
+                    <Link
+                      className="level-item"
+                      aria-label="reply"
+                      to={"/newpost/" + post._id}
+                    >
+                      <i class="fa-solid fa-file-pen"></i>
+                    </Link>
+                  ) : null}
+
                   {post.user._id == userId || role.includes("admin") ? (
                     <a className="level-item" aria-label="like">
                       <span className="icon is-small">
@@ -195,6 +204,16 @@ function AllPosts({ uptime }) {
                     </p>
                     <nav className="level is-mobile">
                       <div className="level-left margin-left">
+                        {comment.user._id == userId ||
+                        role.includes("admin") ? (
+                          <Link
+                            className="level-item"
+                            aria-label="reply"
+                            to={"/comment/" + comment._id}
+                          >
+                            <i class="fa-solid fa-file-pen"></i>
+                          </Link>
+                        ) : null}
                         {comment.user._id == userId ||
                         role.includes("admin") ? (
                           <i
