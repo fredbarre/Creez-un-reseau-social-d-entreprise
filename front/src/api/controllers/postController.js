@@ -194,12 +194,11 @@ export async function setLike(req, res) {
 export async function deleteComment(req, res) {
   //let commentId = req.body.commentId;
   let commentId = req.params.cid;
-  let userId = req.auth.userId;
+  //let userId = req.auth.userId;
 
   let result = await commentModel.updateOne(
     {
       _id: commentId,
-      user: userId,
     },
     {
       comment: "--- Commentaire supprimé---",
@@ -216,7 +215,7 @@ export async function uploadPostImage(req, res) {
   let postId = req.params.id;
   let post = await postModel.findOne({ _id: postId });
   //console.log("upload postuser", postId);
-  if (post.user != req.auth.userId) {
+  if (post.user != req.auth.userId || req.auth.role.indexOf("admin") != -1) {
     return res.status(400).json({ message: "autorisation non accordée" });
   }
 
