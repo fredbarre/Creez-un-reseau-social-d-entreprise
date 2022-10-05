@@ -4,7 +4,6 @@ import { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { UserContext } from "../contexts/UserContext";
-import { fetchconnected } from "../providers/user";
 import { clearStorage, getStorageToken } from "../util/localstorageManager";
 import { checkPreferences } from "joi";
 import { useUpdate } from "../contexts/Update";
@@ -101,7 +100,7 @@ function Header(uptime) {
 
         <div
           id="navbarBasicExample"
-          className={`navbar-menu ${active ? "is-active" : ""}`}
+          className={`bgprimary navbar-menu ${active ? "is-active" : ""}`}
         >
           {connected ? (
             <div className="navbar-start">

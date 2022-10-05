@@ -10,8 +10,9 @@ export async function fetchsignup(params) {
   });
 
   if (!response.ok) {
-    const message = `An error has occured: ${response.status}`;
-    throw new Error(message);
+    //const message = `An error has occured: ${response.status}`;
+    //throw new Error(message);
+    return await response.json();
   }
 
   const responseData = await response.json();
@@ -32,7 +33,8 @@ export async function fetchlogin(params) {
   if (!response.ok) {
     const message = `An error has occured: ${response.status}`;
     //console.log(await response.json());
-    throw new Error(message);
+    //throw new Error(message);
+    return await response.json();
   }
 
   const responseData = await response.json();
@@ -60,7 +62,7 @@ export async function fetchsettings(params, token) {
   //console.log(responseData);
   return responseData;
 }
-
+/*
 export async function fetchconnected(params) {
   const response = await fetch(`/api/account/connected`, {
     method: "POST",
@@ -81,7 +83,7 @@ export async function fetchconnected(params) {
   console.log("fetchconnected rd=", responseData);
   return responseData;
 }
-
+*/
 export async function fetchsendavatar(file, token) {
   console.log("file", file);
 

@@ -162,7 +162,7 @@ function AllPosts({ uptime }) {
                       aria-label="reply"
                       to={"/newpost/" + post._id}
                     >
-                      <i class="fa-solid fa-file-pen"></i>
+                      <i className="fa-solid fa-file-pen"></i>
                     </Link>
                   ) : null}
 

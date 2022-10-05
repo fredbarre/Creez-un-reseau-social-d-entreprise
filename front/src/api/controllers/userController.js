@@ -10,25 +10,30 @@ const { JWT_SECRET } = env;*/
 import joischema from "../managers/joivalidator";
 
 export async function signup(req, res) {
-  let { error, value } = joischema.validate(req.body);
-  //console.log(req.body);
-  if (error) throw error;
-  const { email, password } = req.body;
-  let hash = await bcrypt.hash(password, 10);
+  try {
+    let { error, value } = joischema.validate(req.body);
+    //console.log(req.body);
+    if (error) throw error;
 
-  const account = new accountModel({
-    email,
-    password: hash,
-  });
+    const { email, password } = req.body;
+    let hash = await bcrypt.hash(password, 10);
 
-  const user = new userModel({});
-  user.account = account._id;
-  account.user = user._id;
-  //console.log(user._id, account._id);
+    const account = new accountModel({
+      email,
+      password: hash,
+    });
 
-  await account.save();
-  await user.save();
-  res.status(201).json({ message: "Utilisateur créé !" });
+    const user = new userModel({});
+    user.account = account._id;
+    account.user = user._id;
+    //console.log(user._id, account._id);
+
+    await account.save();
+    await user.save();
+  } catch (error) {
+    return res.status(400).json({ message: "champs non corrects !" });
+  }
+  return res.status(201).json({ okmessage: "Utilisateur créé !" });
 }
 
 let login = async function (req, res) {

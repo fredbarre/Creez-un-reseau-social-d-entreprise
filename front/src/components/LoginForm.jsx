@@ -23,32 +23,37 @@ function LoginForm() {
     let password = document.getElementById("password").value;
 
     let logindata = await fetchlogin({ email: email, password: password });
+    let message = logindata.message;
+    console.log("error message" + message);
+    if (message) {
+      alert(message);
+    } else {
+      setUser(logindata.userId);
+      setAccount(logindata.accountId);
+      setToken(logindata.token);
+      setRole(logindata.role);
+      connected = true;
+      setConnected(true);
+      setAvatarLink(logindata.avatarLink);
 
-    setUser(logindata.userId);
-    setAccount(logindata.accountId);
-    setToken(logindata.token);
-    setRole(logindata.role);
-    connected = true;
-    setConnected(true);
-    setAvatarLink(logindata.avatarLink);
+      //console.log("login form");
+      //console.log(user);
+      //console.log(account);
+      //console.log(token);
+      //console.log(connected);
 
-    console.log("login form");
-    console.log(user);
-    console.log(account);
-    console.log(token);
-    console.log(connected);
+      /* setStorage(
+        logindata.accountId,
+        logindata.userId,
+        logindata.role,
+        logindata.token
+      );*/
 
-    /* setStorage(
-      logindata.accountId,
-      logindata.userId,
-      logindata.role,
-      logindata.token
-    );*/
-
-    navigator.serviceWorker.controller.postMessage({
-      type: "SET_TOKEN",
-      token: logindata.token,
-    });
+      navigator.serviceWorker.controller.postMessage({
+        type: "SET_TOKEN",
+        token: logindata.token,
+      });
+    }
   }
 
   return (
