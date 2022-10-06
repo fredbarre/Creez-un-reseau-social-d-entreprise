@@ -40,7 +40,6 @@ export async function getPost(req, res) {
 }
 
 export async function deletePost(req, res) {
-  //a vérifier l'utilisateur
   let postId = req.params.id;
   let post = await postModel.findOne({ _id: postId });
   let comments = post.comments;
