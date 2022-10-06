@@ -6,7 +6,7 @@ import "./App.css";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import NewPostPage from "./pages/NewPostPage";
-import PostPage from "./pages/postPage";
+import PostPage from "./pages/PostPage";
 import PostsPage from "./pages/PostsPage";
 import Header from "./components/Header";
 import { UserContext } from "./contexts/UserContext";
