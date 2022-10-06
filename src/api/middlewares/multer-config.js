@@ -1,11 +1,12 @@
 import multer from "multer";
+import fs from "fs";
 
 const MIME_TYPES = {
   "image/jpg": "jpg",
   "image/jpeg": "jpg",
   "image/png": "png",
 };
-
+await fs.promises.mkdir("./images").catch((err) => console.warn(err));
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, "./images");
