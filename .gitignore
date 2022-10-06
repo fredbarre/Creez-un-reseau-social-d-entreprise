@@ -1,6 +1,4 @@
-#env
-/src/api/.env
-.env
+
 
 #images
 /images
