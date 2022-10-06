@@ -1,24 +1,27 @@
 # projet 7: Créez un réseau social d’entreprise
 
-**lien du repo**: https://github.com/fredbarre/projet7
+## cloner le dépot
 
-**installation dans le dossier front**: npm install
+    git clone https://github.com/fredbarre/projet7.git
 
-Pour lancer le server il y'a besoin du fichier .env à la racine et .env.local
+## installation dans la racine:
 
-.env contient:
+    npm install
 
-SERVER_PORT=
-JWT_EXPIRE=
+## configuration:
 
-qui correspond au port du server et temps expiration du token avec jwt
+Pour lancer le server ajouter les fichiers suivants à la racine:
 
-.env.local contient:
+**_.env_**:
 
-MONGO_DBLINK=
-JWT_SECRET=
+    SERVER_PORT=5173
+    JWT_EXPIRE="365d"
 
-qui correspond au lien de la base de donnée Mongodb.
-et le secret pour la création du token jwt
+**_.env.local_**:
 
-**lancement du server dans le dossier front**:npm run dev
+    MONGO_DBLINK="mongodb+srv://<user>:<password>@<server>/<db>"
+    JWT_SECRET="<SECRET>"
+
+## lancement du server dans la racine:
+
+    npm run dev
