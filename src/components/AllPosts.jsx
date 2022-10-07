@@ -62,6 +62,8 @@ function AllPosts({ uptime }) {
     })();
   }, [uptime, lastUpdate]);
 
+  console.log("uptime", uptime);
+
   async function submitComment(commentTextid, postId) {
     let comment = document.getElementById(commentTextid).value;
     console.log("cmt" + comment);

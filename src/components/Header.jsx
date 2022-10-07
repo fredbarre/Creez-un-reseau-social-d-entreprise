@@ -25,8 +25,8 @@ function Header(uptime) {
     setConnected,
   } = useContext(UserContext);
 
-  const { update } = useUpdate();
-  const { lastUpdate } = useUpdate();
+  //const { update } = useUpdate();
+  //const { lastUpdate } = useUpdate();
   /*
   useEffect(() => {
     (async function () {
@@ -46,8 +46,8 @@ function Header(uptime) {
   function disconnect() {
     clearStorage();
     setConnected(false);
-    update();
-    navigate(".");
+    //update();
+    //navigate(".");
   }
   /*let connected = false;
   let Pconnected = connect();

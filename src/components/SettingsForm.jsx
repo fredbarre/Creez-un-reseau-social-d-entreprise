@@ -49,6 +49,11 @@ function SettingsForm() {
 
     if (!message) navigate(`/posts`);
   }
+
+  function changefilename() {
+    let filename = document.getElementById("file").files[0].name;
+    document.getElementById("file-desc").textContent = filename;
+  }
   return (
     <section className="section">
       <div className="field">
@@ -60,12 +65,20 @@ function SettingsForm() {
       <br />
       <div className="file">
         <label className="file-label">
-          <input className="file-input" type="file" name="resume" id="file" />
+          <input
+            className="file-input"
+            type="file"
+            name="resume"
+            id="file"
+            onChange={changefilename}
+          />
           <span className="file-cta">
             <span className="file-icon">
               <i className="fas fa-upload"></i>
             </span>
-            <span className="file-label">Choisis un avatar…</span>
+            <span className="file-label" id="file-desc">
+              Choisis un avatar…
+            </span>
           </span>
         </label>
       </div>
