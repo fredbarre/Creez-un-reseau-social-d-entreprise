@@ -93,9 +93,17 @@ function AllPosts({ uptime }) {
     await fetchsetlike(postId, token);
     update();
   }
+  function refresh() {
+    update();
+  }
 
   return (
     <section>
+      <a className="level-item" aria-label="like">
+        <i className="fa-solid fa-arrows-rotate bigfont" onClick={refresh}></i>
+      </a>
+      <br />
+
       {posts.map((post) => (
         <div
           key={post._id}
@@ -232,12 +240,14 @@ function AllPosts({ uptime }) {
                         ) : null}
                         {comment.user._id == userId ||
                         role.includes("admin") ? (
-                          <i
-                            className="fa-solid fa-circle-xmark has-text-danger"
-                            onClick={function () {
-                              submitdeleteComment(comment._id, comment.user);
-                            }}
-                          ></i>
+                          <a className="level-item" aria-label="like">
+                            <i
+                              className="fa-solid fa-circle-xmark has-text-danger"
+                              onClick={function () {
+                                submitdeleteComment(comment._id, comment.user);
+                              }}
+                            ></i>
+                          </a>
                         ) : null}
                       </div>
                     </nav>
