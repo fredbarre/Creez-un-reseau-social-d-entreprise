@@ -244,7 +244,10 @@ function AllPosts({ uptime }) {
                             <i
                               className="fa-solid fa-circle-xmark has-text-danger"
                               onClick={function () {
-                                submitdeleteComment(comment._id, comment.user);
+                                submitdeleteComment(
+                                  comment._id,
+                                  comment.user._id
+                                );
                               }}
                             ></i>
                           </a>
