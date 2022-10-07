@@ -58,8 +58,10 @@ function LoginForm() {
 
   return (
     <div>
-      <h1>Connexion</h1>
       <section className="section">
+        <h1>Connexion</h1>
+        <br />
+        <br />
         <div className="field">
           <p className="control has-icons-left has-icons-right">
             <input

@@ -21,6 +21,8 @@ function SignupForm() {
   return (
     <section className="section">
       <h1>Inscription</h1>
+      <br />
+      <br />
 
       <div className="field">
         <p className="control has-icons-left has-icons-right">
