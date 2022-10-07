@@ -52,11 +52,11 @@ export async function fetchsettings(params, token) {
     },
     body: JSON.stringify(params),
   });
-
+  /*
   if (!response.ok) {
     const message = `An error has occured: ${response.status}`;
     throw new Error(message);
-  }
+  }*/
 
   const responseData = await response.json();
   //console.log(responseData);

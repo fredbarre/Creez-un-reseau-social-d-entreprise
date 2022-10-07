@@ -34,13 +34,20 @@ function SettingsForm() {
 
     let file = document.getElementById("file").files[0];
     let filename = document.getElementById("file").value;
-    if (name) await fetchsettings({ name }, token);
+    let message = undefined;
+    if (name) {
+      let result = await fetchsettings({ name }, token);
+      message = result.message;
+      if (message) {
+        alert(message);
+      }
+    }
     if (filename) {
       let avatar = await fetchsendavatar(file, token);
       setAvatarLink(avatar.path);
     }
 
-    navigate(`/posts`);
+    if (!message) navigate(`/posts`);
   }
   return (
     <section className="section">

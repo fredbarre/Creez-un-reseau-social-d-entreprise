@@ -9,6 +9,7 @@ if (!env.JWT_SECRET) console.log("TOKENSECRET must be set in .env");
 const { JWT_SECRET } = env;*/
 import joischema from "../managers/joivalidator";
 
+/**crée un compte dans la base de donnée */
 export async function signup(req, res) {
   try {
     let { error, value } = joischema.validate(req.body);
@@ -36,6 +37,7 @@ export async function signup(req, res) {
   return res.status(201).json({ okmessage: "Utilisateur créé !" });
 }
 
+/**vérifie les informations de connexion et renvoie un jeton de connexion */
 let login = async function (req, res) {
   let account = await accountModel
     .findOne({ email: req.body.email })
@@ -75,6 +77,16 @@ let login = async function (req, res) {
 
 async function setSettings(req, res) {
   let name = req.body.name;
+
+  let { error, value } = joischema.validate({
+    name: name,
+  });
+
+  if (error != undefined) {
+    //throw new Error("error");
+    return res.status(400).json({ message: "champ pour le nom non valide" });
+  }
+
   let userId = req.auth.userId;
   await userModel.updateOne(
     { _id: userId },
@@ -82,12 +94,13 @@ async function setSettings(req, res) {
       name: name,
     }
   );
-  return res.status(200).json({ message: "paramètres mis a jour" });
+  return res.status(200).json({ name });
 }
 
 async function uploadAvatar(req, res) {
   //console.log(req.file.path);
   let userId = req.auth.userId;
+
   let user = await userModel.findOne({ _id: userId });
 
   try {

@@ -2,6 +2,7 @@ import joischema from "../managers/joivalidator";
 import commentModel from "../models/commentsModel";
 import postModel from "../models/postModel";
 import fs from "fs";
+import { title } from "process";
 
 /**Récupère les la liste des posts dans la base de données */
 export async function getPosts(req, res) {
@@ -68,7 +69,12 @@ export async function newComment(req, res) {
     comment: comment,
   });
 
-  if (error != undefined) throw new Error("error");
+  if (error != undefined) {
+    //throw new Error("error");
+    return res
+      .status(400)
+      .json({ message: "champ pour le commentaire non valide" });
+  }
 
   const commentM = new commentModel({
     user: req.auth.userId,
@@ -83,7 +89,7 @@ export async function newComment(req, res) {
 
   commentM.save();
 
-  return res.status(201).json({ message: "commentaire créé !" });
+  return res.status(201).json(commentM);
 }
 /**crée un nouveau post avec les valeurs contenu dans req.body (title post) */
 export async function newPost(req, res) {
@@ -125,7 +131,15 @@ export async function newPost(req, res) {
 /**met a jour le post avec l'id contenu dans req.params.id avec les valeurs req.body.title req.body.post*/
 export async function updatePost(req, res) {
   let postId = req.params.id;
+  let { error, value } = joischema.validate({
+    title: req.body.title,
+    post: req.body.post,
+  });
 
+  if (error != undefined) {
+    //throw new Error("error");
+    return res.status(400).json({ message: "champs pour le post non valide" });
+  }
   await postModel.updateOne(
     { _id: postId },
     {
@@ -133,20 +147,28 @@ export async function updatePost(req, res) {
       post: req.body.post,
     }
   );
-  return res.status(200).json({ message: "post mis a jour" });
+  return res.status(200).json({ title: req.body.title, post: req.body.post });
 }
 
 /**met a jour le commentaire avec l'id contenu dans req.params.cid avec le commentaire contenu dans req.body.comment */
 export async function updateComment(req, res) {
   let commentId = req.params.cid;
   let comment = req.body.comment;
+  let { error, value } = joischema.validate({
+    comment: req.body.comment,
+  });
+
+  if (error != undefined) {
+    //throw new Error("error");
+    return res.status(400).json({ message: "champs  non valide" });
+  }
   await commentModel.updateOne(
     { _id: commentId },
     {
       comment: comment,
     }
   );
-  return res.status(200).json({ message: "commentaire mis a jour" });
+  return res.status(200).json({ comment });
 }
 
 /**ajoute ou retire un like avec l'id contenu dans req.params.id */
@@ -202,7 +224,7 @@ export async function deleteComment(req, res) {
   return res.status(200).json({ message: "Commentaire supprimé" });
 }
 
-/**upload l'image du post */
+/**upload l'image du post avec l'id dans req.params.id */
 export async function uploadPostImage(req, res) {
   //let userId = req.auth.userId;
   let postId = req.params.id;

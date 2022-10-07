@@ -38,12 +38,17 @@ function NewpostForm() {
 
     let file = document.getElementById("file").files[0];
     let filename = document.getElementById("file").value;
+    let message = undefined;
 
     if (!id) {
       let post = await fetchnewpost(
         { title: postTitle, post: postText, userId, accountId },
         token
       );
+      message = post.message;
+      if (message) {
+        alert(message);
+      }
 
       if (filename) await fetchsendimage(file, post._id, token);
     } else {
@@ -52,10 +57,14 @@ function NewpostForm() {
         id,
         token
       );
+      message = post.message;
+      if (message) {
+        alert(message);
+      }
       if (filename) await fetchsendimage(file, id, token);
     }
 
-    navigate(`/posts`);
+    if (!message) navigate(`/posts`);
   }
 
   return (

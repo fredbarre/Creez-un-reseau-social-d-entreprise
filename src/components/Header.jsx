@@ -110,11 +110,10 @@ function Header(uptime) {
               <Link className="navbar-item colorwhite" to="/posts">
                 Tous les posts
               </Link>
-
-              <Link className="navbar-item colorwhite" to="/myposts">
-                Mes posts
-              </Link>
-
+              {/*
+                <Link className="navbar-item colorwhite" to="/myposts">
+                  Mes posts
+                </Link>*/}
               <Link className="navbar-item colorwhite" to="/newPost">
                 Nouveau post
               </Link>

@@ -65,8 +65,13 @@ function AllPosts({ uptime }) {
   async function submitComment(commentTextid, postId) {
     let comment = document.getElementById(commentTextid).value;
     console.log("cmt" + comment);
-    await fetchnewcomment({ comment }, postId, token);
-    update();
+    let result = await fetchnewcomment({ comment }, postId, token);
+    let message = result.message;
+    if (message) {
+      alert(message);
+    } else {
+      update();
+    }
   }
 
   async function submitdeleteComment(commentId, userId) {
@@ -127,11 +132,14 @@ function AllPosts({ uptime }) {
               </div>
               <nav className="level is-mobile">
                 <div className="level-left">
+                  {/*
                   <a className="level-item" aria-label="reply">
+                    
                     <span className="icon is-small">
                       <i className="fas fa-reply" aria-hidden="true"></i>
                     </span>
                   </a>
+                  
                   <Link
                     className="level-item"
                     aria-label="reply"
@@ -139,7 +147,7 @@ function AllPosts({ uptime }) {
                   >
                     <i className="fa-solid fa-circle-info"></i>
                   </Link>
-
+                  */}
                   <a className="level-item" aria-label="like">
                     <span className="icon is-small">
                       <i

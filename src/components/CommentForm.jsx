@@ -21,8 +21,14 @@ function CommentForm() {
   const { id } = useParams();
   async function submitComment() {
     let comment = document.getElementById("commentText").value;
-    fetchupdatecomment({ userId: user, comment }, id, token);
-    navigate("/");
+    let result = await fetchupdatecomment({ userId: user, comment }, id, token);
+    let message = result.message;
+    console.log(message);
+    if (message) {
+      alert(message);
+    }
+
+    if (!message) navigate("/");
   }
   return (
     <section className="section">

@@ -86,11 +86,11 @@ export async function fetchnewcomment(params, postid, token) {
     },
     body: JSON.stringify(params),
   });
-
+  /*
   if (!response.ok) {
     const message = `An error has occured: ${response.status}`;
     throw new Error(message);
-  }
+  }*/
 
   const responseData = await response.json();
   //console.log(responseData);
@@ -128,12 +128,12 @@ export async function fetchupdatepost(params, id, token) {
     },
     body: JSON.stringify(params),
   });
-
+  /*
   if (!response.ok) {
     const message = `An error has occured: ${response.status}`;
     throw new Error(message);
   }
-
+*/
   const responseData = await response.json();
   //console.log(responseData);
   return responseData;
@@ -213,12 +213,12 @@ export async function fetchupdatecomment(params, cid, token) {
     },
     body: JSON.stringify(params),
   });
-
+  /*
   if (!response.ok) {
     const message = `An error has occured: ${response.status}`;
     throw new Error(message);
   }
-
+*/
   const responseData = await response.json();
   //console.log(responseData);
   return responseData;
