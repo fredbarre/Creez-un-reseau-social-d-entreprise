@@ -2,7 +2,7 @@
 
 ## cloner le dépot
 
-    git clone https://github.com/fredbarre/projet7.git
+    git clone https://github.com/fredbarre/Creez-un-reseau-social-d-entreprise.git
 
 ## installation dans la racine:
 
